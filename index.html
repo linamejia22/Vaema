@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado con el logo y nombre del negocio -->
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo del Negocio">
+        </div>
+        <div class="titulo">
+            <h1>Bienvenido a Nuestro Inventario</h1>
+            <p>Encuentra los mejores productos y contacta con nosotros por WhatsApp</p>
+        </div>
+    </header>
+
+    <!-- Buscador de productos -->
+    <div class="buscador-container">
+        <input type="text" id="buscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+    </div>
+
+    <!-- Carrito de compras -->
+    <div class="carrito-container">
+        <button class="carrito-btn" onclick="verCarrito()">Ver Carrito</button>
+        <p id="carrito-cantidad">0 artículos</p>
+    </div>
+
+    <!-- Lista de productos -->
+    <section class="productos" id="productos">
+        <h2>Productos Disponibles</h2>
+        <!-- Los productos serán insertados dinámicamente aquí -->
+    </section>
+
+    <!-- Enlace para contactar por WhatsApp -->
+    <footer class="footer">
+        <p>¿Tienes dudas? ¡Contáctanos por WhatsApp!</p>
+        <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-link">Chatea con nosotros</a>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

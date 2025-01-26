@@ -1,0 +1,165 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #009688;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header .logo img {
+  width: 80px;
+  height: auto;
+}
+
+header .titulo h1 {
+  margin: 10px 0;
+  font-size: 2rem;
+}
+
+header .titulo p {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+/* Estilo para el buscador */
+.buscador-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.buscador-container input {
+  width: 60%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.buscador-container input:focus {
+  border-color: #009688;
+  outline: none;
+}
+
+/* Estilo para los productos */
+.productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.producto {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.2s ease;
+}
+
+.producto:hover {
+  transform: scale(1.05);
+}
+
+.producto img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.producto h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.producto p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.producto .precio {
+  font-size: 1.2rem;
+  color: #009688;
+  margin-bottom: 15px;
+}
+
+.producto button {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.producto button:hover {
+  background-color: #00796b;
+}
+
+/* Estilo para el carrito */
+.carrito-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.carrito-btn {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carrito-btn:hover {
+  background-color: #00796b;
+}
+
+#carrito-cantidad {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Estilo para el footer */
+footer {
+  background-color: #009688;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
