@@ -11,7 +11,7 @@
     <!-- Encabezado con el logo y nombre del negocio -->
     <header class="header">
         <div class="logo">
-            <img src="images/logo.png" alt="Logo del Negocio">
+            <img src="images/kawasatto.jpeg" alt="Logo del Negocio">
         </div>
         <div class="titulo">
             <h1>Bienvenido a Nuestro Inventario</h1>
@@ -35,6 +35,17 @@
         <h2>Productos Disponibles</h2>
         <!-- Los productos serán insertados dinámicamente aquí -->
     </section>
+
+    <!-- Modal para mostrar el carrito -->
+    <div id="modalCarrito" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <ul id="productosCarrito"></ul>
+            <p><strong>Total: $<span id="totalCarrito"></span></strong></p>
+            <button id="botonComprar" onclick="comprar()">Comprar</button>
+        </div>
+    </div>
 
     <!-- Enlace para contactar por WhatsApp -->
     <footer class="footer">

@@ -56,7 +56,53 @@ function agregarAlCarrito(nombre, precio, imagen) {
 
 // Ver el carrito
 function verCarrito() {
-    alert('Carrito de compras:\n' + carrito.map(item => `${item.nombre} - ${item.cantidad} x $${item.precio}`).join('\n'));
+    const modalCarrito = document.getElementById('modal-carrito');
+    const modalContenido = document.getElementById('modal-contenido');
+    
+    modalContenido.innerHTML = ''; // Limpiar contenido anterior
+    let total = 0;
+
+    carrito.forEach(item => {
+        total += item.precio * item.cantidad;
+        modalContenido.innerHTML += `
+            <div class="carrito-item">
+                <img src="images/${item.imagen}" alt="${item.nombre}" class="carrito-imagen">
+                <p>${item.nombre} - ${item.cantidad} x $${item.precio}</p>
+            </div>
+        `;
+    });
+
+    modalContenido.innerHTML += `<p><strong>Total: $${total}</strong></p>`;
+    modalContenido.innerHTML += `<button onclick="comprar(${total})">Comprar</button>`;
+
+    modalCarrito.style.display = 'block'; // Mostrar el modal
+}
+
+// Función para cerrar el modal del carrito
+function cerrarModal() {
+    const modalCarrito = document.getElementById('modal-carrito');
+    modalCarrito.style.display = 'none';
+}
+
+// Redirigir a WhatsApp con la información del carrito
+function comprar(total) {
+    let mensaje = 'Hola, estoy interesado en los siguientes productos:\n';
+    
+    carrito.forEach(item => {
+        mensaje += `${item.nombre} - ${item.cantidad} x $${item.precio}\n`;
+    });
+
+    mensaje += `\nTotal: $${total}\n\nEstoy listo para realizar la compra.`;
+
+    // Redirigir a WhatsApp con el mensaje
+    const telefono = '1234567890'; // Cambia este número por el de tu WhatsApp
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+
+    // Limpiar el carrito después de la compra
+    carrito = [];
+    actualizarCarrito();
+    cerrarModal();
 }
 
 // Filtrar productos según lo que se escribe en el buscador
