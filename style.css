@@ -325,3 +325,18 @@
 .footer i {
   margin-right: 0.5rem; /* Espaciado para íconos */
 }
+
+
+
+.modal-body .btn-outline-success:hover {
+  background-color: #20c997; /* Fondo verde agua al pasar el mouse */
+  color: #ffffff; /* Texto blanco al pasar el mouse */
+  transform: scale(1.1); /* Agrandamiento del botón */
+}
+
+/* Evitar que el fondo de la página se oscurezca al interactuar con los botones */
+.modal-backdrop {
+  background-color: transparent !important; /* Fondo transparente */
+}
+
+

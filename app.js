@@ -4,11 +4,57 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Cargar productos desde el archivo JSON
 async function cargarProductos() {
     try {
-        const response = await fetch('productos.json');
-        if (!response.ok) {
-            throw new Error('No se pudo cargar el archivo de productos.');
-        }
-        const productos = await response.json();
+        const productos = [
+            { 
+                nombre: "Amortiguador Boxer CT", 
+                marca: "Yamaha", 
+                precio: 120000, 
+                imagen: "9.png", 
+                descripcion: "Amortiguador de alta calidad para motos Boxer CT.", 
+                categoria: "Amortiguadores" 
+            },
+            { 
+                nombre: "Amortiguador Boxer CT", 
+                marca: "Honda", 
+                precio: 130000, 
+                imagen: "amortiguador2.jpg", 
+                descripcion: "Amortiguador original para motos Boxer CT, marca Honda.", 
+                categoria: "Amortiguadores" 
+            },
+            { 
+                nombre: "Neumático 90/90-17", 
+                marca: "Pirelli", 
+                precio: 85000, 
+                imagen: "neumatico2.jpg", 
+                descripcion: "Neumático de alto rendimiento para motos 90/90-17.", 
+                categoria: "Neumáticos" 
+            },
+            { 
+                nombre: "Aceite Motor 20W50", 
+                marca: "Castrol", 
+                precio: 45000, 
+                imagen: "aceite1.jpg", 
+                descripcion: "Aceite motor 20W50 para protección óptima de tu moto.", 
+                categoria: "Aceites" 
+            },
+            { 
+                nombre: "Aceite Motor 20W50", 
+                marca: "Shell", 
+                precio: 47000, 
+                imagen: "aceite2.jpg", 
+                descripcion: "Aceite motor de alta calidad 20W50, para mejorar el rendimiento.", 
+                categoria: "Aceites" 
+            },
+            { 
+                nombre: "Aletas Tanque XTZ", 
+                marca: "Neg,Az,Bl", 
+                precio: 25000, 
+                imagen: "images/Aletas Tanque XTZ Colores Neg,Az,Bl.jpg", 
+                descripcion: "Aletas de tanque para motos XTZ en colores negro, azul y blanco.", 
+                categoria: "Accesorios" 
+            }
+        ];
+
         mostrarProductos(productos);
     } catch (error) {
         console.error('Error cargando los productos:', error);
@@ -35,21 +81,20 @@ function crearProductoElemento(producto) {
     const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
 
     productoDiv.innerHTML = `
-        <div class="producto-card">
+        <div class="producto-card card shadow-sm border-light">
             <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
             <div class="card-body">
-                <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>  <!-- Aquí agregamos la marca -->
+                <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>
                 <p class="card-text">${producto.descripcion}</p>
                 <p class="precio">$${producto.precio}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    ${cantidadEnCarrito > 0 ? 
-                        `<button class="btn btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
-                        <span>${cantidadEnCarrito} en carrito</span>
-                        <button class="btn btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>` 
-                        : 
-                        `<button class="btn btn-primary" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}')">Agregar al carrito</button>`
-                    }
-                </div>
+            <div class="d-flex justify-content-between align-items-center">
+    <span>${producto.nombre} (${producto.marca}) - $${producto.precio} x ${cantidadEnCarrito}</span>
+    <div>
+        <button class="btn btn-sm btn-outline-danger" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
+        <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
+    </div>
+</div>
+
             </div>
         </div>
     `;
@@ -63,8 +108,13 @@ function actualizarCantidadEnCarrito(nombre, precio, imagen, marca, cantidadCamb
     if (productoEnCarrito) {
         productoEnCarrito.cantidad += cantidadCambio;
 
-        // Eliminar el producto si la cantidad es 0
+        // No permitir cantidades negativas
         if (productoEnCarrito.cantidad <= 0) {
+            productoEnCarrito.cantidad = 0;
+        }
+
+        // Eliminar el producto si la cantidad es 0
+        if (productoEnCarrito.cantidad === 0) {
             carrito = carrito.filter(item => item !== productoEnCarrito);
         }
     } else if (cantidadCambio > 0) {
@@ -72,60 +122,60 @@ function actualizarCantidadEnCarrito(nombre, precio, imagen, marca, cantidadCamb
     }
 
     actualizarCarrito();
-    mostrarModalCarrito(); // Mostrar el modal actualizado
+}
+
+// Función para agregar productos al carrito
+function agregarAlCarrito(nombre, precio, imagen, marca) {
+    const productoExistente = carrito.find(item => item.nombre === nombre && item.marca === marca);
+
+    if (productoExistente) {
+        productoExistente.cantidad += 1;
+    } else {
+        carrito.push({ nombre, precio, imagen, marca, cantidad: 1 });
+    }
+
+    actualizarCarrito();
 }
 
 // Función para mostrar el modal del carrito
 function mostrarModalCarrito() {
-    // Verifica si el modal ya está creado
-    if (document.getElementById('modalCarrito')) {
-        mostrarProductosEnCarrito();
-        const modalElement = document.getElementById('modalCarrito');
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show(); // Mostrar el modal
-        return;
-    }
-
-    // Crear el modal dinámicamente
-    const modalHTML = `
-    <div id="modalCarrito" class="modal fade" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCarritoLabel">Tu Carrito</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul id="productosCarrito" class="list-group"></ul>
-                    <div class="mt-3 text-end">
-                        <strong>Total: $<span id="totalCarrito">0</span></strong>
+    if (!document.getElementById('modalCarrito')) {
+        const modalHTML = `
+        <div id="modalCarrito" class="modal fade" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCarritoLabel">Tu Carrito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="comprar()">Finalizar Compra</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <div class="modal-body">
+                        <ul id="productosCarrito" class="list-group"></ul>
+                        <div class="mt-3 text-end">
+                            <strong>Total: $<span id="totalCarrito">0</span></strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="finalizarCompra()">Finalizar Compra</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    `;
-    
-    // Insertar el modal en el body
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
 
-    // Mostrar los productos en el carrito dentro del modal
     mostrarProductosEnCarrito();
 
-    // Inicializar y mostrar el modal
     const modalElement = document.getElementById('modalCarrito');
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
 }
 
-// Función para mostrar los productos en el carrito dentro del modal
+// Mostrar productos en el carrito dentro del modal
 function mostrarProductosEnCarrito() {
     const productosCarrito = document.getElementById('productosCarrito');
-    productosCarrito.innerHTML = ''; // Limpiar el contenido del modal
+    productosCarrito.innerHTML = '';
 
     let total = 0;
     carrito.forEach(producto => {
@@ -135,8 +185,7 @@ function mostrarProductosEnCarrito() {
             <div class="d-flex justify-content-between align-items-center">
                 <span>${producto.nombre} (${producto.marca}) - $${producto.precio} x ${producto.cantidad}</span>
                 <div>
-                    <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
-                    <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="eliminarDelCarrito('${producto.nombre}', '${producto.marca}')">Eliminar</button>
                 </div>
             </div>
         `;
@@ -147,23 +196,20 @@ function mostrarProductosEnCarrito() {
     document.getElementById('totalCarrito').textContent = total;
 }
 
-// Función de compra (como ejemplo)
-function comprar() {
-    let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-    let mensaje = 'Hola, estoy interesado en los siguientes productos:\n';
-    
-    carrito.forEach(item => {
-        mensaje += `${item.nombre} - ${item.cantidad} x $${item.precio}\n`;
-    });
+// Función para eliminar un producto del carrito
+function eliminarDelCarrito(nombre, marca) {
+    carrito = carrito.filter(item => !(item.nombre === nombre && item.marca === marca));
+    actualizarCarrito();
+    mostrarModalCarrito();
+}
 
-    mensaje += `\nTotal: $${total}\n\nEstoy listo para realizar la compra.`;
-
-    // Redirigir a WhatsApp con el mensaje
-    const telefono = '+573204535477'; // Cambia este número por el de tu WhatsApp
-    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
-
-    // Limpiar el carrito después de la compra
+// Finalizar la compra
+function finalizarCompra() {
+    if (carrito.length === 0) {
+        alert("No tienes productos en el carrito.");
+        return;
+    }
+    alert("Compra realizada con éxito!");
     carrito = [];
     actualizarCarrito();
     cerrarModal();
@@ -173,7 +219,7 @@ function comprar() {
 function actualizarCarrito() {
     const cantidadCarrito = carrito.reduce((total, item) => total + item.cantidad, 0);
     document.getElementById('carrito-cantidad').textContent = `${cantidadCarrito} artículos`;
-    localStorage.setItem('carrito', JSON.stringify(carrito));  // Guardar el carrito en el almacenamiento local
+    localStorage.setItem('carrito', JSON.stringify(carrito)); 
 }
 
 // Cerrar el modal
@@ -185,7 +231,37 @@ function cerrarModal() {
 // Iniciar la carga de productos al cargar la página
 document.addEventListener('DOMContentLoaded', cargarProductos);
 
-// Función para abrir el modal del carrito solo cuando se hace clic en el ícono
-document.querySelector('.carrito-btn').addEventListener('click', mostrarModalCarrito);
+// Event listener para abrir el modal al hacer clic en el carrito
+document.getElementById('carrito-btn').addEventListener('click', mostrarModalCarrito);
 
+// Función para hacer el carrito arrastrable
+function hacerCarritoArrastrable() {
+    const carritoDraggable = document.getElementById('carritoDraggable');
+    let isDragging = false;
+    let offsetX, offsetY;
 
+    carritoDraggable.addEventListener('mousedown', function (e) {
+        isDragging = true;
+        offsetX = e.clientX - carritoDraggable.getBoundingClientRect().left;
+        offsetY = e.clientY - carritoDraggable.getBoundingClientRect().top;
+        document.body.style.userSelect = 'none';  // Desactivar la selección de texto mientras arrastras
+
+        // Evitar que el clic abra el modal si se está arrastrando
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function (e) {
+        if (isDragging) {
+            carritoDraggable.style.left = `${e.clientX - offsetX}px`;
+            carritoDraggable.style.top = `${e.clientY - offsetY}px`;
+        }
+    });
+
+    document.addEventListener('mouseup', function () {
+        isDragging = false;
+        document.body.style.userSelect = 'auto';  // Habilitar la selección de texto nuevamente
+    });
+}
+
+// Llamamos a la función para hacer el carrito arrastrable al cargar la página
+document.addEventListener('DOMContentLoaded', hacerCarritoArrastrable);
