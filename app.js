@@ -30,18 +30,25 @@ function mostrarProductos(productos) {
 function crearProductoElemento(producto) {
     const productoDiv = document.createElement('div');
     productoDiv.classList.add('producto');
+
+    const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre);
+    const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
     
     productoDiv.innerHTML = `
         <img src="images/${producto.imagen}" alt="${producto.nombre}">
         <h3>${producto.nombre}</h3>
         <p>${producto.descripcion}</p>
         <p class="precio">$${producto.precio}</p>
-        <button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>
+        ${cantidadEnCarrito > 0 ? 
+            `<button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">+ ${cantidadEnCarrito} en carrito</button>`
+            : 
+            `<button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>`
+        }
     `;
     return productoDiv;
 }
 
-// Agregar un producto al carrito
+// Agregar un producto al carrito o aumentar su cantidad
 function agregarAlCarrito(nombre, precio, imagen) {
     const productoEnCarrito = carrito.find(item => item.nombre === nombre);
 
@@ -52,12 +59,13 @@ function agregarAlCarrito(nombre, precio, imagen) {
     }
 
     actualizarCarrito();
+    mostrarProductos(productos);  // Para actualizar la vista del inventario
 }
 
 // Ver el carrito
 function verCarrito() {
-    const modalCarrito = document.getElementById('modal-carrito');
-    const modalContenido = document.getElementById('modal-contenido');
+    const modalCarrito = document.getElementById('modalCarrito');
+    const modalContenido = document.getElementById('productosCarrito');
     
     modalContenido.innerHTML = ''; // Limpiar contenido anterior
     let total = 0;
@@ -68,6 +76,9 @@ function verCarrito() {
             <div class="carrito-item">
                 <img src="images/${item.imagen}" alt="${item.nombre}" class="carrito-imagen">
                 <p>${item.nombre} - ${item.cantidad} x $${item.precio}</p>
+                <button onclick="cambiarCantidad('${item.nombre}', -1)">-</button>
+                <span>${item.cantidad}</span>
+                <button onclick="cambiarCantidad('${item.nombre}', 1)">+</button>
             </div>
         `;
     });
@@ -78,9 +89,26 @@ function verCarrito() {
     modalCarrito.style.display = 'block'; // Mostrar el modal
 }
 
+// Cambiar la cantidad de un producto en el carrito
+function cambiarCantidad(nombre, cambio) {
+    const productoEnCarrito = carrito.find(item => item.nombre === nombre);
+
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad += cambio;
+
+        // Eliminar el producto si la cantidad es 0
+        if (productoEnCarrito.cantidad <= 0) {
+            carrito = carrito.filter(item => item.nombre !== nombre);
+        }
+    }
+
+    actualizarCarrito();
+    verCarrito();  // Actualizar el modal
+}
+
 // Función para cerrar el modal del carrito
 function cerrarModal() {
-    const modalCarrito = document.getElementById('modal-carrito');
+    const modalCarrito = document.getElementById('modalCarrito');
     modalCarrito.style.display = 'none';
 }
 
@@ -95,7 +123,7 @@ function comprar(total) {
     mensaje += `\nTotal: $${total}\n\nEstoy listo para realizar la compra.`;
 
     // Redirigir a WhatsApp con el mensaje
-    const telefono = '1234567890'; // Cambia este número por el de tu WhatsApp
+    const telefono = '+573204535477'; // Cambia este número por el de tu WhatsApp
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
 
