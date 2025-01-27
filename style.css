@@ -144,14 +144,14 @@
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1); /* Sombra más suave al pasar el ratón */
 }
 
-.producto-card {
-  border: 1px solid #ddd; /* Borde gris claro */
+.card-body {
+  border: 1px solid #000000; /* Borde gris claro */
   border-radius: 12px; /* Bordes más redondeados */
   overflow: hidden; /* Evitar que las imágenes se desborden */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   text-align: center;
   background-color: #ffffff; /* Fondo blanco */
-  background-image: url('path/to/your/background-image.jpg'); /* Imagen de fondo */
+  background-image: url('kawasatto.jpeg'); /* Imagen de fondo */
   background-size: cover; /* Cubre todo el fondo */
   background-position: center; /* Centra la imagen de fondo */
   transition: box-shadow 0.3s ease-in-out, transform 0.2s ease; /* Efecto suave */
@@ -340,3 +340,121 @@
 }
 
 
+
+
+/* Estilo general de la página */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Estilo de la tarjeta de producto */
+.producto-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.producto-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del producto */
+.producto-card img {
+  max-height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Estilo del cuerpo de la tarjeta */
+.producto-card .card-body {
+  padding: 1rem;
+  color: #444;
+}
+
+/* Título del producto */
+.producto-card .card-body .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Descripción del producto */
+.producto-card .card-body .card-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Precio del producto */
+.producto-card .card-body .precio {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #20c997;
+}
+
+/* Controles de cantidad */
+.producto-card .card-body .d-flex {
+  margin-top: 15px;
+  align-items: center;
+}
+
+.producto-card .card-body .cantidad-carrito {
+  font-size: 1rem;
+  color: #555;
+  margin-right: 10px;
+}
+
+/* Botones de cantidad */
+.producto-card .card-body button {
+  width: 35px;
+  height: 35px;
+  font-size: 1rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.producto-card .card-body button.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.producto-card .card-body button.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Grilla de productos */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+}
+
+.col-6 {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .producto-card img {
+      max-height: 150px;
+  }
+
+  .producto-card .card-body .card-title {
+      font-size: 1.1rem;
+  }
+
+  .producto-card .card-body .card-text {
+      font-size: 0.9rem;
+  }
+}

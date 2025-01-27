@@ -40,31 +40,31 @@ function mostrarProductos(productos) {
 // Crear el elemento HTML de un producto con controles de cantidad
 function crearProductoElemento(producto) {
     const productoDiv = document.createElement('div');
-    productoDiv.classList.add('col-md-4', 'mb-4');
+    productoDiv.classList.add('col-6', 'col-sm-6', 'col-md-4', 'col-lg-3', 'mb-4');
 
     const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre && item.marca === producto.marca);
     const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
 
     productoDiv.innerHTML = `
-        <div class="producto-card card shadow-sm border-light">
+        <div class="producto-card card shadow-sm border-light rounded-3">
             <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
             <div class="card-body">
                 <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>
                 <p class="card-text">${producto.descripcion}</p>
                 <p class="precio">$${producto.precio}</p>
-            <div class="d-flex justify-content-between align-items-center">
-    <span>${producto.nombre} (${producto.marca}) - $${producto.precio} x ${cantidadEnCarrito}</span>
-    <div>
-        <button class="btn btn-sm btn-outline-danger" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
-        <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
-    </div>
-</div>
-
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="cantidad-carrito">Cantidad en carrito: ${cantidadEnCarrito}</span>
+                    <div class="d-flex">
+                        <button class="btn btn-sm btn-outline-danger me-2" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
+                        <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     `;
     return productoDiv;
 }
+
 
 // Función para actualizar la cantidad de un producto en el carrito
 function actualizarCantidadEnCarrito(nombre, precio, imagen, marca, cantidadCambio) {
@@ -86,8 +86,14 @@ function actualizarCantidadEnCarrito(nombre, precio, imagen, marca, cantidadCamb
         carrito.push({ nombre, precio, imagen, marca, cantidad: cantidadCambio });
     }
 
-    actualizarCarrito();
+    // Actualizar el carrito en el localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizar la UI para reflejar el cambio en la cantidad
+    mostrarProductos(productosGlobales);  // Vuelve a mostrar los productos con las cantidades actualizadas
+    actualizarCarrito(); // Actualiza el contador del carrito
 }
+
 
 // Función para agregar productos al carrito
 function agregarAlCarrito(nombre, precio, imagen, marca) {
@@ -140,7 +146,7 @@ function mostrarModalCarrito() {
 // Mostrar productos en el carrito dentro del modal
 function mostrarProductosEnCarrito() {
     const productosCarrito = document.getElementById('productosCarrito');
-    productosCarrito.innerHTML = '';
+    productosCarrito.innerHTML = '';  // Limpiar productos del carrito
 
     let total = 0;
     carrito.forEach(producto => {
@@ -149,8 +155,11 @@ function mostrarProductosEnCarrito() {
         li.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
                 <span>${producto.nombre} (${producto.marca}) - $${producto.precio} x ${producto.cantidad}</span>
-                <div>
-                    <button class="btn btn-sm btn-outline-danger" onclick="eliminarDelCarrito('${producto.nombre}', '${producto.marca}')">Eliminar</button>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-outline-danger me-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', -1)">-</button>
+                    <span class="cantidad-carrito">${producto.cantidad}</span>
+                    <button class="btn btn-sm btn-outline-success ms-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', 1)">+</button>
+                    <button class="btn btn-sm btn-outline-danger ms-3" onclick="eliminarDelCarrito('${producto.nombre}', '${producto.marca}')">Eliminar</button>
                 </div>
             </div>
         `;
@@ -161,11 +170,38 @@ function mostrarProductosEnCarrito() {
     document.getElementById('totalCarrito').textContent = total;
 }
 
+// Función para modificar la cantidad de un producto en el carrito
+function modificarCantidadCarrito(nombre, marca, cantidadCambio) {
+    const productoEnCarrito = carrito.find(item => item.nombre === nombre && item.marca === marca);
+
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad += cantidadCambio;
+
+        // No permitir cantidades negativas
+        if (productoEnCarrito.cantidad <= 0) {
+            productoEnCarrito.cantidad = 0;
+        }
+
+        // Eliminar el producto si la cantidad es 0
+        if (productoEnCarrito.cantidad === 0) {
+            carrito = carrito.filter(item => item !== productoEnCarrito);
+        }
+    }
+
+    // Actualizar el carrito en el localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizar la UI del modal con los cambios
+    mostrarProductosEnCarrito();
+    actualizarCarrito();  // Actualizar la cantidad total en el carrito (fuera del modal)
+}
+
 // Función para eliminar un producto del carrito
 function eliminarDelCarrito(nombre, marca) {
     carrito = carrito.filter(item => !(item.nombre === nombre && item.marca === marca));
-    actualizarCarrito();
-    mostrarModalCarrito();
+    localStorage.setItem('carrito', JSON.stringify(carrito));  // Actualizar localStorage
+    mostrarProductosEnCarrito();  // Volver a renderizar los productos en el carrito
+    actualizarCarrito();  // Actualizar el contador de productos en el carrito
 }
 
 // Finalizar la compra
