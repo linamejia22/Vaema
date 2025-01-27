@@ -26,42 +26,53 @@ function mostrarProductos(productos) {
     });
 }
 
-// Crear el elemento HTML de un producto
+// Crear el elemento HTML de un producto con controles de cantidad
 function crearProductoElemento(producto) {
     const productoDiv = document.createElement('div');
     productoDiv.classList.add('col-md-4', 'mb-4');
 
-    const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre);
+    const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre && item.marca === producto.marca);
     const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
 
     productoDiv.innerHTML = `
-        <div class="card">
+        <div class="producto-card">
             <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
             <div class="card-body">
-                <h5 class="card-title">${producto.nombre}</h5>
+                <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>  <!-- Aquí agregamos la marca -->
                 <p class="card-text">${producto.descripcion}</p>
                 <p class="precio">$${producto.precio}</p>
-                ${cantidadEnCarrito > 0 ? 
-                    `<button class="btn btn-outline-success" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">+ ${cantidadEnCarrito} en carrito</button>` 
-                    : 
-                    `<button class="btn btn-primary" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>`}
+                <div class="d-flex justify-content-between align-items-center">
+                    ${cantidadEnCarrito > 0 ? 
+                        `<button class="btn btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
+                        <span>${cantidadEnCarrito} en carrito</span>
+                        <button class="btn btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>` 
+                        : 
+                        `<button class="btn btn-primary" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}')">Agregar al carrito</button>`
+                    }
+                </div>
             </div>
         </div>
     `;
     return productoDiv;
 }
 
-// Agregar un producto al carrito o aumentar su cantidad
-function agregarAlCarrito(nombre, precio, imagen) {
-    const productoEnCarrito = carrito.find(item => item.nombre === nombre);
+// Función para actualizar la cantidad de un producto en el carrito
+function actualizarCantidadEnCarrito(nombre, precio, imagen, marca, cantidadCambio) {
+    const productoEnCarrito = carrito.find(item => item.nombre === nombre && item.marca === marca);
 
     if (productoEnCarrito) {
-        productoEnCarrito.cantidad++;
-    } else {
-        carrito.push({ nombre, precio, imagen, cantidad: 1 });
+        productoEnCarrito.cantidad += cantidadCambio;
+
+        // Eliminar el producto si la cantidad es 0
+        if (productoEnCarrito.cantidad <= 0) {
+            carrito = carrito.filter(item => item !== productoEnCarrito);
+        }
+    } else if (cantidadCambio > 0) {
+        carrito.push({ nombre, precio, imagen, marca, cantidad: cantidadCambio });
     }
 
     actualizarCarrito();
+    mostrarModalCarrito(); // Mostrar el modal actualizado
 }
 
 // Función para mostrar el modal del carrito
@@ -111,7 +122,7 @@ function mostrarModalCarrito() {
     modal.show();
 }
 
-// Mostrar productos en el carrito dentro del modal
+// Función para mostrar los productos en el carrito dentro del modal
 function mostrarProductosEnCarrito() {
     const productosCarrito = document.getElementById('productosCarrito');
     productosCarrito.innerHTML = ''; // Limpiar el contenido del modal
@@ -120,16 +131,21 @@ function mostrarProductosEnCarrito() {
     carrito.forEach(producto => {
         const li = document.createElement('li');
         li.classList.add('list-group-item');
-        li.textContent = `${producto.nombre} - $${producto.precio} x ${producto.cantidad}`;
+        li.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+                <span>${producto.nombre} (${producto.marca}) - $${producto.precio} x ${producto.cantidad}</span>
+                <div>
+                    <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
+                    <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
+                </div>
+            </div>
+        `;
         productosCarrito.appendChild(li);
         total += producto.precio * producto.cantidad;
     });
 
     document.getElementById('totalCarrito').textContent = total;
 }
-
-// Función para abrir el modal del carrito
-document.querySelector('.carrito-btn').addEventListener('click', mostrarModalCarrito);
 
 // Función de compra (como ejemplo)
 function comprar() {
@@ -169,34 +185,7 @@ function cerrarModal() {
 // Iniciar la carga de productos al cargar la página
 document.addEventListener('DOMContentLoaded', cargarProductos);
 
-// Manejo del carrito flotante
-const carritoDraggable = document.getElementById("carritoDraggable");
+// Función para abrir el modal del carrito solo cuando se hace clic en el ícono
+document.querySelector('.carrito-btn').addEventListener('click', mostrarModalCarrito);
 
-let offsetX = 0;
-let offsetY = 0;
-let isDragging = false;
 
-// Cuando el usuario comienza a arrastrar
-carritoDraggable.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    offsetX = e.clientX - carritoDraggable.getBoundingClientRect().left;
-    offsetY = e.clientY - carritoDraggable.getBoundingClientRect().top;
-    carritoDraggable.style.cursor = "grabbing";
-});
-
-// Mientras arrastra el carrito
-document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-        carritoDraggable.style.left = `${e.clientX - offsetX}px`;
-        carritoDraggable.style.top = `${e.clientY - offsetY}px`;
-        carritoDraggable.style.position = "fixed";
-    }
-});
-
-// Cuando el usuario suelta el carrito
-document.addEventListener("mouseup", () => {
-    if (isDragging) {
-        isDragging = false;
-        carritoDraggable.style.cursor = "grab";
-    }
-});

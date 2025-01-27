@@ -118,59 +118,77 @@
 }
 
 .productos h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #343a40; /* Color oscuro para el título */
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Espaciado inferior mayor */
+  text-align: center; /* Alineación centrada */
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem; /* Espaciado entre los productos */
+  gap: -0.5rem; /* Espaciado entre los productos */
+  justify-content: center; /* Centra los productos en la fila */
 }
 
 .col-12.col-md-4 {
   flex: 0 0 30%; /* Ajuste de tamaño de los productos en pantallas medianas */
   max-width: 30%;
   margin-bottom: 2rem; /* Espaciado inferior de cada producto */
-  transition: transform 0.3s ease-in-out; /* Animación suave */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animación suave */
 }
 
 .col-12.col-md-4:hover {
   transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1); /* Sombra más suave al pasar el ratón */
 }
 
 .producto-card {
   border: 1px solid #ddd; /* Borde gris claro */
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 12px; /* Bordes más redondeados */
   overflow: hidden; /* Evitar que las imágenes se desborden */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   text-align: center;
-  background-color: #f9f9f9; /* Fondo gris claro */
-  transition: box-shadow 0.3s ease-in-out; /* Efecto al pasar el mouse */
+  background-color: #ffffff; /* Fondo blanco */
+  background-image: url('path/to/your/background-image.jpg'); /* Imagen de fondo */
+  background-size: cover; /* Cubre todo el fondo */
+  background-position: center; /* Centra la imagen de fondo */
+  transition: box-shadow 0.3s ease-in-out, transform 0.2s ease; /* Efecto suave */
 }
 
 .producto-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Más sombra al pasar el mouse */
+  transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
 }
 
 .producto-card img {
   max-width: 100%;
   height: auto;
   border-bottom: 2px solid #ddd; /* Línea separadora */
+  border-radius: 8px 8px 0 0; /* Bordes superiores redondeados */
+  transition: transform 0.2s ease;
+}
+
+.producto-card:hover img {
+  transform: scale(1.1); /* Efecto de zoom en la imagen */
 }
 
 .producto-card .producto-titulo {
-  font-size: 1.2rem;
-  color: #343a40; /* Título oscuro */
-  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: #ffffff; /* Título blanco */
+  margin: 1.5rem 0;
+  font-weight: 600; /* Un poco más de peso en el texto */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra suave para el texto */
 }
 
 .producto-card .producto-precio {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #20c997; /* Verde agua para precio */
+  margin: 0.5rem 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Sombra ligera para el precio */
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .producto-card .btn-agregar {
@@ -178,14 +196,24 @@
   border: none;
   color: #ffffff;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
 }
 
 .producto-card .btn-agregar:hover {
   background-color: #17a589; /* Fondo más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandamiento en el botón */
 }
+
+/* Animación del precio al pasar el mouse */
+.producto-card:hover .producto-precio {
+  color: #17a589; /* Cambio a un verde más oscuro */
+  transform: translateY(-5px); /* Desplazamiento sutil hacia arriba */
+}
+
 
 /* Modal para el carrito */
 .modal-content {
