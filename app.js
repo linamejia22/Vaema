@@ -174,11 +174,36 @@ function finalizarCompra() {
         alert("No tienes productos en el carrito.");
         return;
     }
-    alert("Compra realizada con éxito!");
+
+    // Crear el mensaje para WhatsApp con los productos comprados
+    let mensaje = "¡Hola! Quiero comprar los siguientes productos:\n\n";
+    carrito.forEach(producto => {
+        mensaje += `${producto.nombre} (${producto.marca}) - $${producto.precio} x ${producto.cantidad}\n`;
+    });
+    mensaje += `\nTotal: $${calcularTotalCarrito()}`;
+
+    // Codificar el mensaje para URL
+    const mensajeCodificado = encodeURIComponent(mensaje);
+
+    // Crear la URL de WhatsApp con el mensaje
+    const telefono = "+573204535477"; // Aquí puedes poner el número de teléfono de WhatsApp
+    const urlWhatsApp = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
+
+    // Redirigir al usuario a WhatsApp
+    window.location.href = urlWhatsApp;
+
+    // Vaciar el carrito y actualizar la UI
     carrito = [];
     actualizarCarrito();
+    alert("Compra realizada con éxito!");
     cerrarModal();
 }
+
+// Función para calcular el total del carrito
+function calcularTotalCarrito() {
+    return carrito.reduce((total, producto) => total + (producto.precio * producto.cantidad), 0);
+}
+
 
 // Actualizar el contador de artículos en el carrito
 function actualizarCarrito() {
