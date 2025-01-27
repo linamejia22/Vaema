@@ -1,64 +1,29 @@
 // Variable para almacenar el carrito de compras
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-// Cargar productos desde el archivo JSON
+// Variable global para los productos
+let productosGlobales = []; // Almacenar los productos cargados desde el JSON
+
+// Cargar productos desde un archivo JSON
 async function cargarProductos() {
     try {
-        const productos = [
-            { 
-                nombre: "Amortiguador Boxer CT", 
-                marca: "Yamaha", 
-                precio: 120000, 
-                imagen: "9.png", 
-                descripcion: "Amortiguador de alta calidad para motos Boxer CT.", 
-                categoria: "Amortiguadores" 
-            },
-            { 
-                nombre: "Amortiguador Boxer CT", 
-                marca: "Honda", 
-                precio: 130000, 
-                imagen: "amortiguador2.jpg", 
-                descripcion: "Amortiguador original para motos Boxer CT, marca Honda.", 
-                categoria: "Amortiguadores" 
-            },
-            { 
-                nombre: "Neumático 90/90-17", 
-                marca: "Pirelli", 
-                precio: 85000, 
-                imagen: "neumatico2.jpg", 
-                descripcion: "Neumático de alto rendimiento para motos 90/90-17.", 
-                categoria: "Neumáticos" 
-            },
-            { 
-                nombre: "Aceite Motor 20W50", 
-                marca: "Castrol", 
-                precio: 45000, 
-                imagen: "aceite1.jpg", 
-                descripcion: "Aceite motor 20W50 para protección óptima de tu moto.", 
-                categoria: "Aceites" 
-            },
-            { 
-                nombre: "Aceite Motor 20W50", 
-                marca: "Shell", 
-                precio: 47000, 
-                imagen: "aceite2.jpg", 
-                descripcion: "Aceite motor de alta calidad 20W50, para mejorar el rendimiento.", 
-                categoria: "Aceites" 
-            },
-            { 
-                nombre: "Aletas Tanque XTZ", 
-                marca: "Neg,Az,Bl", 
-                precio: 25000, 
-                imagen: "images/Aletas Tanque XTZ Colores Neg,Az,Bl.jpg", 
-                descripcion: "Aletas de tanque para motos XTZ en colores negro, azul y blanco.", 
-                categoria: "Accesorios" 
-            }
-        ];
-
-        mostrarProductos(productos);
+        const response = await fetch('productos.json'); // Cambia esta ruta si es necesario
+        productosGlobales = await response.json();
+        mostrarProductos(productosGlobales); // Mostrar todos los productos al cargar la página
     } catch (error) {
         console.error('Error cargando los productos:', error);
     }
+}
+
+// Función para filtrar productos
+function filtrarProductos() {
+    const busqueda = document.getElementById('buscador').value.toLowerCase();
+    const productosFiltrados = productosGlobales.filter(producto => {
+        return producto.nombre.toLowerCase().includes(busqueda) || 
+               producto.marca.toLowerCase().includes(busqueda) ||
+               producto.descripcion.toLowerCase().includes(busqueda);
+    });
+    mostrarProductos(productosFiltrados); // Mostrar productos filtrados
 }
 
 // Mostrar productos en la página
@@ -263,5 +228,5 @@ function hacerCarritoArrastrable() {
     });
 }
 
-// Llamamos a la función para hacer el carrito arrastrable al cargar la página
-document.addEventListener('DOMContentLoaded', hacerCarritoArrastrable);
+// Llamamos a la función para que el carrito sea arrastrable
+hacerCarritoArrastrable();
