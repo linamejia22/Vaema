@@ -1,5 +1,5 @@
 // Variable para almacenar el carrito de compras
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Cargar productos desde el archivo JSON
 async function cargarProductos() {
@@ -17,7 +17,7 @@ async function cargarProductos() {
 
 // Mostrar productos en la página
 function mostrarProductos(productos) {
-    const contenedorProductos = document.getElementById('productos');
+    const contenedorProductos = document.getElementById('lista-productos');
     contenedorProductos.innerHTML = ''; // Limpiar la sección de productos
 
     productos.forEach(producto => {
@@ -29,21 +29,24 @@ function mostrarProductos(productos) {
 // Crear el elemento HTML de un producto
 function crearProductoElemento(producto) {
     const productoDiv = document.createElement('div');
-    productoDiv.classList.add('producto');
+    productoDiv.classList.add('col-md-4', 'mb-4');
 
     const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre);
     const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
-    
+
     productoDiv.innerHTML = `
-        <img src="images/${producto.imagen}" alt="${producto.nombre}">
-        <h3>${producto.nombre}</h3>
-        <p>${producto.descripcion}</p>
-        <p class="precio">$${producto.precio}</p>
-        ${cantidadEnCarrito > 0 ? 
-            `<button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">+ ${cantidadEnCarrito} en carrito</button>`
-            : 
-            `<button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>`
-        }
+        <div class="card">
+            <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
+            <div class="card-body">
+                <h5 class="card-title">${producto.nombre}</h5>
+                <p class="card-text">${producto.descripcion}</p>
+                <p class="precio">$${producto.precio}</p>
+                ${cantidadEnCarrito > 0 ? 
+                    `<button class="btn btn-outline-success" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">+ ${cantidadEnCarrito} en carrito</button>` 
+                    : 
+                    `<button class="btn btn-primary" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>`}
+            </div>
+        </div>
     `;
     return productoDiv;
 }
@@ -59,61 +62,78 @@ function agregarAlCarrito(nombre, precio, imagen) {
     }
 
     actualizarCarrito();
-    mostrarProductos(productos);  // Para actualizar la vista del inventario
 }
 
-// Ver el carrito
-function verCarrito() {
-    const modalCarrito = document.getElementById('modalCarrito');
-    const modalContenido = document.getElementById('productosCarrito');
-    
-    modalContenido.innerHTML = ''; // Limpiar contenido anterior
-    let total = 0;
-
-    carrito.forEach(item => {
-        total += item.precio * item.cantidad;
-        modalContenido.innerHTML += `
-            <div class="carrito-item">
-                <img src="images/${item.imagen}" alt="${item.nombre}" class="carrito-imagen">
-                <p>${item.nombre} - ${item.cantidad} x $${item.precio}</p>
-                <button onclick="cambiarCantidad('${item.nombre}', -1)">-</button>
-                <span>${item.cantidad}</span>
-                <button onclick="cambiarCantidad('${item.nombre}', 1)">+</button>
-            </div>
-        `;
-    });
-
-    modalContenido.innerHTML += `<p><strong>Total: $${total}</strong></p>`;
-    modalContenido.innerHTML += `<button onclick="comprar(${total})">Comprar</button>`;
-
-    modalCarrito.style.display = 'block'; // Mostrar el modal
-}
-
-// Cambiar la cantidad de un producto en el carrito
-function cambiarCantidad(nombre, cambio) {
-    const productoEnCarrito = carrito.find(item => item.nombre === nombre);
-
-    if (productoEnCarrito) {
-        productoEnCarrito.cantidad += cambio;
-
-        // Eliminar el producto si la cantidad es 0
-        if (productoEnCarrito.cantidad <= 0) {
-            carrito = carrito.filter(item => item.nombre !== nombre);
-        }
+// Función para mostrar el modal del carrito
+function mostrarModalCarrito() {
+    // Verifica si el modal ya está creado
+    if (document.getElementById('modalCarrito')) {
+        mostrarProductosEnCarrito();
+        const modalElement = document.getElementById('modalCarrito');
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show(); // Mostrar el modal
+        return;
     }
 
-    actualizarCarrito();
-    verCarrito();  // Actualizar el modal
+    // Crear el modal dinámicamente
+    const modalHTML = `
+    <div id="modalCarrito" class="modal fade" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCarritoLabel">Tu Carrito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="productosCarrito" class="list-group"></ul>
+                    <div class="mt-3 text-end">
+                        <strong>Total: $<span id="totalCarrito">0</span></strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="comprar()">Finalizar Compra</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    // Insertar el modal en el body
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Mostrar los productos en el carrito dentro del modal
+    mostrarProductosEnCarrito();
+
+    // Inicializar y mostrar el modal
+    const modalElement = document.getElementById('modalCarrito');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
 }
 
-// Función para cerrar el modal del carrito
-function cerrarModal() {
-    const modalCarrito = document.getElementById('modalCarrito');
-    modalCarrito.style.display = 'none';
+// Mostrar productos en el carrito dentro del modal
+function mostrarProductosEnCarrito() {
+    const productosCarrito = document.getElementById('productosCarrito');
+    productosCarrito.innerHTML = ''; // Limpiar el contenido del modal
+
+    let total = 0;
+    carrito.forEach(producto => {
+        const li = document.createElement('li');
+        li.classList.add('list-group-item');
+        li.textContent = `${producto.nombre} - $${producto.precio} x ${producto.cantidad}`;
+        productosCarrito.appendChild(li);
+        total += producto.precio * producto.cantidad;
+    });
+
+    document.getElementById('totalCarrito').textContent = total;
 }
 
-// Redirigir a WhatsApp con la información del carrito
-function comprar(total) {
+// Función para abrir el modal del carrito
+document.querySelector('.carrito-btn').addEventListener('click', mostrarModalCarrito);
+
+// Función de compra (como ejemplo)
+function comprar() {
+    let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
     let mensaje = 'Hola, estoy interesado en los siguientes productos:\n';
     
     carrito.forEach(item => {
@@ -133,27 +153,50 @@ function comprar(total) {
     cerrarModal();
 }
 
-// Filtrar productos según lo que se escribe en el buscador
-function filtrarProductos() {
-    const busqueda = document.getElementById('buscador').value.toLowerCase();
-    const productos = document.querySelectorAll('.producto');
-
-    productos.forEach(producto => {
-        const nombreProducto = producto.querySelector('h3').textContent.toLowerCase();
-        
-        if (nombreProducto.includes(busqueda)) {
-            producto.style.display = 'block';
-        } else {
-            producto.style.display = 'none';
-        }
-    });
-}
-
 // Actualizar el contador de artículos en el carrito
 function actualizarCarrito() {
     const cantidadCarrito = carrito.reduce((total, item) => total + item.cantidad, 0);
     document.getElementById('carrito-cantidad').textContent = `${cantidadCarrito} artículos`;
+    localStorage.setItem('carrito', JSON.stringify(carrito));  // Guardar el carrito en el almacenamiento local
+}
+
+// Cerrar el modal
+function cerrarModal() {
+    const modalCarrito = bootstrap.Modal.getInstance(document.getElementById('modalCarrito'));
+    modalCarrito.hide();
 }
 
 // Iniciar la carga de productos al cargar la página
 document.addEventListener('DOMContentLoaded', cargarProductos);
+
+// Manejo del carrito flotante
+const carritoDraggable = document.getElementById("carritoDraggable");
+
+let offsetX = 0;
+let offsetY = 0;
+let isDragging = false;
+
+// Cuando el usuario comienza a arrastrar
+carritoDraggable.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - carritoDraggable.getBoundingClientRect().left;
+    offsetY = e.clientY - carritoDraggable.getBoundingClientRect().top;
+    carritoDraggable.style.cursor = "grabbing";
+});
+
+// Mientras arrastra el carrito
+document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        carritoDraggable.style.left = `${e.clientX - offsetX}px`;
+        carritoDraggable.style.top = `${e.clientY - offsetY}px`;
+        carritoDraggable.style.position = "fixed";
+    }
+});
+
+// Cuando el usuario suelta el carrito
+document.addEventListener("mouseup", () => {
+    if (isDragging) {
+        isDragging = false;
+        carritoDraggable.style.cursor = "grab";
+    }
+});
