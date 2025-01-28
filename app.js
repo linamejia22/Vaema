@@ -37,28 +37,21 @@ function mostrarProductos(productos) {
     });
 }
 
-// Crear el elemento HTML de un producto con controles de cantidad
+// Crear el elemento HTML de un producto con un botón de "Comprar"
 function crearProductoElemento(producto) {
     const productoDiv = document.createElement('div');
     productoDiv.classList.add('col-6', 'col-sm-6', 'col-md-4', 'col-lg-3', 'mb-4');
 
-    const productoEnCarrito = carrito.find(item => item.nombre === producto.nombre && item.marca === producto.marca);
-    const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
-
     productoDiv.innerHTML = `
-        <div class="producto-card card shadow-sm border-light rounded-3">
-            <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
-            <div class="card-body">
+        <div class="producto-card card shadow-sm border-light rounded-3 h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center">
+                <img src="images/${producto.imagen}" class="img-fluid rounded mb-3" alt="${producto.nombre}" style="max-height: 150px; object-fit: cover;">
                 <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>
                 <p class="card-text">${producto.descripcion}</p>
                 <p class="precio">$${producto.precio}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="cantidad-carrito">Cantidad en carrito: ${cantidadEnCarrito}</span>
-                    <div class="d-flex">
-                        <button class="btn btn-sm btn-outline-danger me-2" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', -1)">-</button>
-                        <button class="btn btn-sm btn-outline-success" onclick="actualizarCantidadEnCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}', 1)">+</button>
-                    </div>
-                </div>
+                <button class="btn btn-sm btn-warning w-100 mt-auto" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}')">
+                    Comprar
+                </button>
             </div>
         </div>
     `;
@@ -291,3 +284,51 @@ function hacerCarritoArrastrable() {
 
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
+
+const productosPrueba = [
+    {
+        nombre: "Camiseta",
+        marca: "Nike",
+        descripcion: "Camiseta deportiva de alta calidad.",
+        precio: 25.99,
+        imagen: "kawasatto.jpeg"
+    },
+    {
+        nombre: "Zapatillas",
+        marca: "Adidas",
+        descripcion: "Zapatillas cómodas para correr.",
+        precio: 59.99,
+        imagen: "zapatillas.jpg"
+    },
+    {
+        nombre: "Gorra",
+        marca: "Puma",
+        descripcion: "Gorra ligera y ajustable.",
+        precio: 19.99,
+        imagen: "gorra.jpg"
+    },
+    {
+        nombre: "Pantalón Deportivo",
+        marca: "Under Armour",
+        descripcion: "Pantalón perfecto para entrenamientos intensos.",
+        precio: 34.99,
+        imagen: "pantalon.jpg"
+    },
+    {
+        nombre: "Mochila",
+        marca: "The North Face",
+        descripcion: "Mochila resistente y espaciosa.",
+        precio: 49.99,
+        imagen: "mochila.jpg"
+    }
+];
+
+async function cargarProductos() {
+    try {
+        // Usa productosPrueba directamente en lugar de fetch
+        productosGlobales = productosPrueba;
+        mostrarProductos(productosGlobales); // Mostrar todos los productos al cargar la página
+    } catch (error) {
+        console.error('Error cargando los productos:', error);
+    }
+}
