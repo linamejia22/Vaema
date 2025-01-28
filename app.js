@@ -27,14 +27,12 @@ function filtrarProductos() {
 }
 
 // Mostrar productos en la página
-function mostrarProductos(productos) {
-    const contenedorProductos = document.getElementById('lista-productos');
-    contenedorProductos.innerHTML = ''; // Limpiar la sección de productos
-
-    productos.forEach(producto => {
-        const productoDiv = crearProductoElemento(producto);
-        contenedorProductos.appendChild(productoDiv);
-    });
+// Función para formatear el precio en pesos colombianos
+function formatearPrecio(precio) {
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+    }).format(precio);
 }
 
 // Crear el elemento HTML de un producto con un botón de "Comprar"
@@ -48,7 +46,7 @@ function crearProductoElemento(producto) {
                 <img src="images/${producto.imagen}" class="img-fluid rounded mb-3" alt="${producto.nombre}" style="max-height: 150px; object-fit: cover;">
                 <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>
                 <p class="card-text">${producto.descripcion}</p>
-                <p class="precio">$${producto.precio}</p>
+                <p class="precio">${formatearPrecio(producto.precio)}</p>  <!-- Formato de precio -->
                 <button class="btn btn-sm btn-warning w-100 mt-auto" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}')">
                     Comprar
                 </button>
@@ -56,6 +54,34 @@ function crearProductoElemento(producto) {
         </div>
     `;
     return productoDiv;
+}
+
+// Función para mostrar productos en el carrito dentro del modal
+function mostrarProductosEnCarrito() {
+    const productosCarrito = document.getElementById('productosCarrito');
+    productosCarrito.innerHTML = '';  // Limpiar productos del carrito
+
+    let total = 0;
+    carrito.forEach(producto => {
+        const li = document.createElement('li');
+        li.classList.add('list-group-item');
+        li.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+                <span>${producto.nombre} (${producto.marca}) - ${formatearPrecio(producto.precio)} x ${producto.cantidad}</span>  <!-- Formato de precio -->
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-outline-danger me-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', -1)">-</button>
+                    <span class="cantidad-carrito">${producto.cantidad}</span>
+                    <button class="btn btn-sm btn-outline-success ms-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', 1)">+</button>
+                    <button class="btn btn-sm btn-outline-danger ms-3" onclick="eliminarDelCarrito('${producto.nombre}', '${producto.marca}')">Eliminar</button>
+                </div>
+            </div>
+        `;
+        productosCarrito.appendChild(li);
+        total += producto.precio * producto.cantidad;
+    });
+
+    // Mostrar el total en formato de pesos colombianos
+    document.getElementById('totalCarrito').textContent = formatearPrecio(total);
 }
 
 
