@@ -27,12 +27,14 @@ function filtrarProductos() {
 }
 
 // Mostrar productos en la página
-// Función para formatear el precio en pesos colombianos
-function formatearPrecio(precio) {
-    return new Intl.NumberFormat('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-    }).format(precio);
+function mostrarProductos(productos) {
+    const contenedorProductos = document.getElementById('lista-productos');
+    contenedorProductos.innerHTML = ''; // Limpiar la sección de productos
+
+    productos.forEach(producto => {
+        const productoDiv = crearProductoElemento(producto);
+        contenedorProductos.appendChild(productoDiv);
+    });
 }
 
 // Crear el elemento HTML de un producto con un botón de "Comprar"
@@ -46,7 +48,7 @@ function crearProductoElemento(producto) {
                 <img src="images/${producto.imagen}" class="img-fluid rounded mb-3" alt="${producto.nombre}" style="max-height: 150px; object-fit: cover;">
                 <h5 class="card-title">${producto.nombre} - ${producto.marca}</h5>
                 <p class="card-text">${producto.descripcion}</p>
-                <p class="precio">${formatearPrecio(producto.precio)}</p>  <!-- Formato de precio -->
+                <p class="precio">$${producto.precio}</p>
                 <button class="btn btn-sm btn-warning w-100 mt-auto" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.imagen}', '${producto.marca}')">
                     Comprar
                 </button>
@@ -54,34 +56,6 @@ function crearProductoElemento(producto) {
         </div>
     `;
     return productoDiv;
-}
-
-// Función para mostrar productos en el carrito dentro del modal
-function mostrarProductosEnCarrito() {
-    const productosCarrito = document.getElementById('productosCarrito');
-    productosCarrito.innerHTML = '';  // Limpiar productos del carrito
-
-    let total = 0;
-    carrito.forEach(producto => {
-        const li = document.createElement('li');
-        li.classList.add('list-group-item');
-        li.innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
-                <span>${producto.nombre} (${producto.marca}) - ${formatearPrecio(producto.precio)} x ${producto.cantidad}</span>  <!-- Formato de precio -->
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-sm btn-outline-danger me-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', -1)">-</button>
-                    <span class="cantidad-carrito">${producto.cantidad}</span>
-                    <button class="btn btn-sm btn-outline-success ms-2" onclick="modificarCantidadCarrito('${producto.nombre}', '${producto.marca}', 1)">+</button>
-                    <button class="btn btn-sm btn-outline-danger ms-3" onclick="eliminarDelCarrito('${producto.nombre}', '${producto.marca}')">Eliminar</button>
-                </div>
-            </div>
-        `;
-        productosCarrito.appendChild(li);
-        total += producto.precio * producto.cantidad;
-    });
-
-    // Mostrar el total en formato de pesos colombianos
-    document.getElementById('totalCarrito').textContent = formatearPrecio(total);
 }
 
 
@@ -137,37 +111,21 @@ function animarProductoAlCarrito(nombre) {
         const card = productoElemento.closest('.producto-card');
         const clon = card.cloneNode(true);
 
-        // Estilos para el clon animado
+        // Estilos para la animación
         clon.classList.add('producto-animado');
         const rect = card.getBoundingClientRect();
-        clon.style.position = 'fixed';
         clon.style.top = `${rect.top}px`;
         clon.style.left = `${rect.left}px`;
         clon.style.width = `${card.offsetWidth}px`;
         clon.style.height = `${card.offsetHeight}px`;
 
-        // Añadir el clon al body
+        // Añadir el clon al body y animarlo
         document.body.appendChild(clon);
-
-        // Obtener la posición del carrito flotante
-        const carrito = document.getElementById('carritoDraggable');
-        const carritoRect = carrito.getBoundingClientRect();
-
-        // Iniciar la animación
-        clon.style.animation = 'none'; // Resetear animaciones anteriores
-        requestAnimationFrame(() => {
-            clon.style.animation = `
-                moverAlCarrito 1s ease-in-out forwards
-            `;
-            clon.style.setProperty('--translateX', `${carritoRect.left - rect.left}px`);
-            clon.style.setProperty('--translateY', `${carritoRect.top - rect.top}px`);
-        });
 
         // Eliminar el clon después de la animación
         clon.addEventListener('animationend', () => clon.remove());
     }
 }
-
 
 
 // Función para mostrar el modal del carrito
@@ -354,26 +312,50 @@ function hacerCarritoArrastrable() {
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
 
-
-
-function guardarPosicionCarrito(x, y) {
-    localStorage.setItem('carritoPosicion', JSON.stringify({ x, y }));
-}
-
-function restaurarPosicionCarrito() {
-    const posicion = JSON.parse(localStorage.getItem('carritoPosicion'));
-    if (posicion) {
-        const carritoDraggable = document.getElementById('carritoDraggable');
-        carritoDraggable.style.left = `${posicion.x}px`;
-        carritoDraggable.style.top = `${posicion.y}px`;
+const productosPrueba = [
+    {
+        nombre: "Camiseta",
+        marca: "Nike",
+        descripcion: "Camiseta deportiva de alta calidad.",
+        precio: 25.99,
+        imagen: "kawasatto.jpeg"
+    },
+    {
+        nombre: "Zapatillas",
+        marca: "Adidas",
+        descripcion: "Zapatillas cómodas para correr.",
+        precio: 59.99,
+        imagen: "zapatillas.jpg"
+    },
+    {
+        nombre: "Gorra",
+        marca: "Puma",
+        descripcion: "Gorra ligera y ajustable.",
+        precio: 19.99,
+        imagen: "gorra.jpg"
+    },
+    {
+        nombre: "Pantalón Deportivo",
+        marca: "Under Armour",
+        descripcion: "Pantalón perfecto para entrenamientos intensos.",
+        precio: 34.99,
+        imagen: "pantalon.jpg"
+    },
+    {
+        nombre: "Mochila",
+        marca: "The North Face",
+        descripcion: "Mochila resistente y espaciosa.",
+        precio: 49.99,
+        imagen: "mochila.jpg"
     }
-}
+];
 
-function ordenarProductos(criterio) {
-    if (criterio === 'precio') {
-        productosGlobales.sort((a, b) => a.precio - b.precio);
-    } else if (criterio === 'nombre') {
-        productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+async function cargarProductos() {
+    try {
+        // Usa productosPrueba directamente en lugar de fetch
+        productosGlobales = productosPrueba;
+        mostrarProductos(productosGlobales); // Mostrar todos los productos al cargar la página
+    } catch (error) {
+        console.error('Error cargando los productos:', error);
     }
-    mostrarProductos(productosGlobales);
 }
