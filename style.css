@@ -478,3 +478,79 @@ body {
   -webkit-animation: slide-out-elliptic-right-bck 1s ease-in both;
   animation: slide-out-elliptic-right-bck 1s ease-in both;
 }
+
+@keyframes moverAlCarrito {
+  from {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+  }
+  to {
+      transform: translate(var(--translateX, 0), var(--translateY, 0)) scale(0.5);
+      opacity: 0;
+  }
+}
+
+.producto-animado {
+  position: fixed;
+  z-index: 1000;
+  animation: moverAlCarrito 1s ease-in-out forwards;
+  pointer-events: none;
+}
+
+/* Contenedor del selector o botones */
+.ordenar-productos {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Etiqueta para "Ordenar por:" */
+.ordenar-productos label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Menú desplegable (selector) */
+.ordenar-productos select {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.ordenar-productos select:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Botones */
+.ordenar-productos button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background-color: white;
+  color: #007bff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 5px;
+}
+
+.ordenar-productos button:last-child {
+  margin-right: 0;
+}
+
+/* Hover y foco en botones */
+.ordenar-productos button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.ordenar-productos button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

@@ -98,8 +98,51 @@ function agregarAlCarrito(nombre, precio, imagen, marca) {
         carrito.push({ nombre, precio, imagen, marca, cantidad: 1 });
     }
 
+    // Agregar animación visual
+    animarProductoAlCarrito(nombre);
+
+    // Actualizar el carrito
     actualizarCarrito();
 }
+
+function animarProductoAlCarrito(nombre) {
+    const productoElemento = Array.from(document.querySelectorAll('.card-title')).find(el => el.textContent.includes(nombre));
+    if (productoElemento) {
+        const card = productoElemento.closest('.producto-card');
+        const clon = card.cloneNode(true);
+
+        // Estilos para el clon animado
+        clon.classList.add('producto-animado');
+        const rect = card.getBoundingClientRect();
+        clon.style.position = 'fixed';
+        clon.style.top = `${rect.top}px`;
+        clon.style.left = `${rect.left}px`;
+        clon.style.width = `${card.offsetWidth}px`;
+        clon.style.height = `${card.offsetHeight}px`;
+
+        // Añadir el clon al body
+        document.body.appendChild(clon);
+
+        // Obtener la posición del carrito flotante
+        const carrito = document.getElementById('carritoDraggable');
+        const carritoRect = carrito.getBoundingClientRect();
+
+        // Iniciar la animación
+        clon.style.animation = 'none'; // Resetear animaciones anteriores
+        requestAnimationFrame(() => {
+            clon.style.animation = `
+                moverAlCarrito 1s ease-in-out forwards
+            `;
+            clon.style.setProperty('--translateX', `${carritoRect.left - rect.left}px`);
+            clon.style.setProperty('--translateY', `${carritoRect.top - rect.top}px`);
+        });
+
+        // Eliminar el clon después de la animación
+        clon.addEventListener('animationend', () => clon.remove());
+    }
+}
+
+
 
 // Función para mostrar el modal del carrito
 function mostrarModalCarrito() {
@@ -285,50 +328,26 @@ function hacerCarritoArrastrable() {
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
 
-const productosPrueba = [
-    {
-        nombre: "Camiseta",
-        marca: "Nike",
-        descripcion: "Camiseta deportiva de alta calidad.",
-        precio: 25.99,
-        imagen: "kawasatto.jpeg"
-    },
-    {
-        nombre: "Zapatillas",
-        marca: "Adidas",
-        descripcion: "Zapatillas cómodas para correr.",
-        precio: 59.99,
-        imagen: "zapatillas.jpg"
-    },
-    {
-        nombre: "Gorra",
-        marca: "Puma",
-        descripcion: "Gorra ligera y ajustable.",
-        precio: 19.99,
-        imagen: "gorra.jpg"
-    },
-    {
-        nombre: "Pantalón Deportivo",
-        marca: "Under Armour",
-        descripcion: "Pantalón perfecto para entrenamientos intensos.",
-        precio: 34.99,
-        imagen: "pantalon.jpg"
-    },
-    {
-        nombre: "Mochila",
-        marca: "The North Face",
-        descripcion: "Mochila resistente y espaciosa.",
-        precio: 49.99,
-        imagen: "mochila.jpg"
-    }
-];
 
-async function cargarProductos() {
-    try {
-        // Usa productosPrueba directamente en lugar de fetch
-        productosGlobales = productosPrueba;
-        mostrarProductos(productosGlobales); // Mostrar todos los productos al cargar la página
-    } catch (error) {
-        console.error('Error cargando los productos:', error);
+
+function guardarPosicionCarrito(x, y) {
+    localStorage.setItem('carritoPosicion', JSON.stringify({ x, y }));
+}
+
+function restaurarPosicionCarrito() {
+    const posicion = JSON.parse(localStorage.getItem('carritoPosicion'));
+    if (posicion) {
+        const carritoDraggable = document.getElementById('carritoDraggable');
+        carritoDraggable.style.left = `${posicion.x}px`;
+        carritoDraggable.style.top = `${posicion.y}px`;
     }
+}
+
+function ordenarProductos(criterio) {
+    if (criterio === 'precio') {
+        productosGlobales.sort((a, b) => a.precio - b.precio);
+    } else if (criterio === 'nombre') {
+        productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+    mostrarProductos(productosGlobales);
 }

@@ -22,6 +22,17 @@
         </div>
     </header>
 
+    <div class="ordenar-productos">
+        <label for="ordenar">Ordenar por:</label>
+        <select id="ordenar" onchange="ordenarProductos(this.value)">
+            <option value="">Seleccionar</option>
+            <option value="nombre">Nombre</option>
+            <option value="precio">Precio</option>
+        </select>
+    </div>
+    
+    
+
     <!-- Barra de búsqueda -->
     <section class="buscador-container p-3">
         <div class="container">
@@ -41,6 +52,7 @@
         <span id="carrito-cantidad" class="carrito-notificacion">0</span>
     </button>
 </div>
+
 
 <!-- Lista de productos -->
 <section class="productos py-5" id="productos">
