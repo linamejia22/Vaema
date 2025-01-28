@@ -114,19 +114,32 @@ function animarProductoAlCarrito(nombre) {
         // Estilos para la animación
         clon.classList.add('producto-animado');
         const rect = card.getBoundingClientRect();
+        clon.style.position = 'fixed';
         clon.style.top = `${rect.top}px`;
         clon.style.left = `${rect.left}px`;
         clon.style.width = `${card.offsetWidth}px`;
         clon.style.height = `${card.offsetHeight}px`;
+        clon.style.transition = 'all 0.5s ease-in-out';
 
-        // Añadir el clon al body y animarlo
+        // Añadir el clon al body
         document.body.appendChild(clon);
 
+        // Obtener la posición del carrito
+        const carritoElemento = document.getElementById('carritoDraggable');
+        const carritoRect = carritoElemento.getBoundingClientRect();
+
+        // Mover el clon hacia el carrito
+        setTimeout(() => {
+            clon.style.top = `${carritoRect.top}px`;
+            clon.style.left = `${carritoRect.left}px`;
+            clon.style.transform = 'scale(0.1)';
+            clon.style.opacity = '0';
+        }, 10);
+
         // Eliminar el clon después de la animación
-        clon.addEventListener('animationend', () => clon.remove());
+        clon.addEventListener('transitionend', () => clon.remove());
     }
 }
-
 
 // Función para mostrar el modal del carrito
 function mostrarModalCarrito() {
@@ -286,28 +299,45 @@ function hacerCarritoArrastrable() {
     let isDragging = false;
     let offsetX, offsetY;
 
-    carritoDraggable.addEventListener('mousedown', function (e) {
+    function startDrag(e) {
         isDragging = true;
-        offsetX = e.clientX - carritoDraggable.getBoundingClientRect().left;
-        offsetY = e.clientY - carritoDraggable.getBoundingClientRect().top;
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+        offsetX = clientX - carritoDraggable.getBoundingClientRect().left;
+        offsetY = clientY - carritoDraggable.getBoundingClientRect().top;
         document.body.style.userSelect = 'none';  // Desactivar la selección de texto mientras arrastras
 
         // Evitar que el clic abra el modal si se está arrastrando
         e.preventDefault();
-    });
+    }
 
-    document.addEventListener('mousemove', function (e) {
+    function drag(e) {
         if (isDragging) {
-            carritoDraggable.style.left = `${e.clientX - offsetX}px`;
-            carritoDraggable.style.top = `${e.clientY - offsetY}px`;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            carritoDraggable.style.left = `${clientX - offsetX}px`;
+            carritoDraggable.style.top = `${clientY - offsetY}px`;
         }
-    });
+    }
 
-    document.addEventListener('mouseup', function () {
+    function endDrag() {
         isDragging = false;
         document.body.style.userSelect = 'auto';  // Habilitar la selección de texto nuevamente
-    });
+    }
+
+    // Eventos para mouse
+    carritoDraggable.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+
+    // Eventos para touch
+    carritoDraggable.addEventListener('touchstart', startDrag);
+    document.addEventListener('touchmove', drag);
+    document.addEventListener('touchend', endDrag);
 }
+
+// Llamamos a la función para que el carrito sea arrastrable
+hacerCarritoArrastrable();
 
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
