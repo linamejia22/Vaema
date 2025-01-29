@@ -554,3 +554,12 @@ body {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+#carritoDraggable {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  /* Añade más estilos según sea necesario */
+}
