@@ -478,3 +478,12 @@ body {
   -webkit-animation: slide-out-elliptic-right-bck 1s ease-in both;
   animation: slide-out-elliptic-right-bck 1s ease-in both;
 }
+
+/* Asegúrate de que el modal no esté oculto en móviles */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}

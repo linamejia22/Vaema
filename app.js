@@ -15,6 +15,16 @@ async function cargarProductos() {
     }
 }
 
+// Función para filtrar productos
+function filtrarProductos() {
+    const busqueda = document.getElementById('buscador').value.toLowerCase();
+    const productosFiltrados = productosGlobales.filter(producto => {
+        return producto.nombre.toLowerCase().includes(busqueda) || 
+               producto.marca.toLowerCase().includes(busqueda) ||
+               producto.descripcion.toLowerCase().includes(busqueda);
+    });
+    mostrarProductos(productosFiltrados); // Mostrar productos filtrados
+}
 
 // Mostrar productos en la página
 function mostrarProductos(productos) {
@@ -88,47 +98,7 @@ function agregarAlCarrito(nombre, precio, imagen, marca) {
         carrito.push({ nombre, precio, imagen, marca, cantidad: 1 });
     }
 
-    // Agregar animación visual
-    animarProductoAlCarrito(nombre);
-
-    // Actualizar el carrito
     actualizarCarrito();
-}
-
-function animarProductoAlCarrito(nombre) {
-    const productoElemento = Array.from(document.querySelectorAll('.card-title')).find(el => el.textContent.includes(nombre));
-    if (productoElemento) {
-        const card = productoElemento.closest('.producto-card');
-        const clon = card.cloneNode(true);
-
-        // Estilos para la animación
-        clon.classList.add('producto-animado');
-        const rect = card.getBoundingClientRect();
-        clon.style.position = 'fixed';
-        clon.style.top = `${rect.top}px`;
-        clon.style.left = `${rect.left}px`;
-        clon.style.width = `${card.offsetWidth}px`;
-        clon.style.height = `${card.offsetHeight}px`;
-        clon.style.transition = 'all 0.5s ease-in-out';
-
-        // Añadir el clon al body
-        document.body.appendChild(clon);
-
-        // Obtener la posición del carrito
-        const carritoElemento = document.getElementById('carritoDraggable');
-        const carritoRect = carritoElemento.getBoundingClientRect();
-
-        // Mover el clon hacia el carrito
-        setTimeout(() => {
-            clon.style.top = `${carritoRect.top}px`;
-            clon.style.left = `${carritoRect.left}px`;
-            clon.style.transform = 'scale(0.1)';
-            clon.style.opacity = '0';
-        }, 10);
-
-        // Eliminar el clon después de la animación
-        clon.addEventListener('transitionend', () => clon.remove());
-    }
 }
 
 // Función para mostrar el modal del carrito
@@ -283,96 +253,35 @@ document.addEventListener('DOMContentLoaded', cargarProductos);
 // Event listener para abrir el modal al hacer clic en el carrito
 document.getElementById('carrito-btn').addEventListener('click', mostrarModalCarrito);
 
+// Función para hacer el carrito arrastrable
 function hacerCarritoArrastrable() {
     const carritoDraggable = document.getElementById('carritoDraggable');
-    const cantidadCarrito = document.getElementById('carrito-cantidad'); // Elemento para la cantidad
     let isDragging = false;
     let offsetX, offsetY;
 
-    function startDrag(e) {
+    carritoDraggable.addEventListener('mousedown', function (e) {
         isDragging = true;
-        const clientX = e.clientX || e.touches[0].clientX;
-        const clientY = e.clientY || e.touches[0].clientY;
-        offsetX = clientX - carritoDraggable.getBoundingClientRect().left;
-        offsetY = clientY - carritoDraggable.getBoundingClientRect().top;
+        offsetX = e.clientX - carritoDraggable.getBoundingClientRect().left;
+        offsetY = e.clientY - carritoDraggable.getBoundingClientRect().top;
         document.body.style.userSelect = 'none';  // Desactivar la selección de texto mientras arrastras
 
         // Evitar que el clic abra el modal si se está arrastrando
         e.preventDefault();
-    }
+    });
 
-    function drag(e) {
+    document.addEventListener('mousemove', function (e) {
         if (isDragging) {
-            const clientX = e.clientX || e.touches[0].clientX;
-            const clientY = e.clientY || e.touches[0].clientY;
-
-            // Calcular las nuevas posiciones del carrito
-            let newLeft = clientX - offsetX;
-            let newTop = clientY - offsetY;
-
-            // Limitar los bordes para que no se salga de la pantalla
-            const maxLeft = window.innerWidth - carritoDraggable.offsetWidth;
-            const maxTop = window.innerHeight - carritoDraggable.offsetHeight;
-
-            // Asegurar que el carrito no se salga de la pantalla
-            newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-            newTop = Math.max(0, Math.min(newTop, maxTop));
-
-            carritoDraggable.style.left = `${newLeft}px`;
-            carritoDraggable.style.top = `${newTop}px`;
-
-            // Actualizar la posición de la cantidad de productos
-            cantidadCarrito.style.left = `${newLeft + carritoDraggable.offsetWidth / 2 - cantidadCarrito.offsetWidth / 2}px`;
-            cantidadCarrito.style.top = `${newTop + carritoDraggable.offsetHeight / 2 - cantidadCarrito.offsetHeight / 2}px`;
+            carritoDraggable.style.left = `${e.clientX - offsetX}px`;
+            carritoDraggable.style.top = `${e.clientY - offsetY}px`;
         }
-    }
+    });
 
-    function endDrag() {
+    document.addEventListener('mouseup', function () {
         isDragging = false;
         document.body.style.userSelect = 'auto';  // Habilitar la selección de texto nuevamente
-    }
-
-    // Eventos para mouse
-    carritoDraggable.addEventListener('mousedown', startDrag);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', endDrag);
-
-    // Eventos para touch
-    carritoDraggable.addEventListener('touchstart', startDrag);
-    document.addEventListener('touchmove', drag);
-    document.addEventListener('touchend', endDrag);
+    });
 }
-
 
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
 
-
-
-
-// Llamamos a la función para que el carrito sea arrastrable
-hacerCarritoArrastrable();
-
-function ordenarProductos(valor) {
-    let productosOrdenados;
-    
-    switch (valor) {
-        case 'nombre-asc':
-            productosOrdenados = productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
-            break;
-        case 'nombre-desc':
-            productosOrdenados = productosGlobales.sort((a, b) => b.nombre.localeCompare(a.nombre));
-            break;
-        case 'precio-asc':
-            productosOrdenados = productosGlobales.sort((a, b) => a.precio - b.precio);
-            break;
-        case 'precio-desc':
-            productosOrdenados = productosGlobales.sort((a, b) => b.precio - a.precio);
-            break;
-        default:
-            productosOrdenados = productosGlobales; // No ordenar si no hay selección
-            break;
-    }
-
-    mostrarProductos(productosOrdenados); // Mostrar los productos ordenados
-}
