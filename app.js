@@ -283,19 +283,12 @@ document.addEventListener('DOMContentLoaded', cargarProductos);
 // Event listener para abrir el modal al hacer clic en el carrito
 document.getElementById('carrito-btn').addEventListener('click', mostrarModalCarrito);
 
-//function hacerCarritoArrastrable() {
+function hacerCarritoArrastrable() {
     const carritoDraggable = document.getElementById('carritoDraggable');
-    const cantidadCarrito = document.getElementById('carrito-cantidad');
-
-    if (!carritoDraggable || !cantidadCarrito) {
-        console.error('Los elementos necesarios no se encontraron en el DOM.');
-        return;
-    }
-
+    const cantidadCarrito = document.getElementById('carrito-cantidad'); // Elemento para la cantidad
     let isDragging = false;
     let offsetX, offsetY;
 
-    // Desactivar el comportamiento predeterminado solo para el inicio del arrastre
     function startDrag(e) {
         isDragging = true;
         const clientX = e.clientX || e.touches[0].clientX;
@@ -325,7 +318,6 @@ document.getElementById('carrito-btn').addEventListener('click', mostrarModalCar
             newLeft = Math.max(0, Math.min(newLeft, maxLeft));
             newTop = Math.max(0, Math.min(newTop, maxTop));
 
-            // Aplicar las nuevas posiciones
             carritoDraggable.style.left = `${newLeft}px`;
             carritoDraggable.style.top = `${newTop}px`;
 
@@ -349,30 +341,37 @@ document.getElementById('carrito-btn').addEventListener('click', mostrarModalCar
     carritoDraggable.addEventListener('touchstart', startDrag);
     document.addEventListener('touchmove', drag);
     document.addEventListener('touchend', endDrag);
-//}
+}
+
 
 // Llamamos a la función para que el carrito sea arrastrable
-//hacerCarritoArrastrable();
+hacerCarritoArrastrable();
 
-// Función para ordenar los productos
-function ordenarProductos(criterio) {
+
+
+
+// Llamamos a la función para que el carrito sea arrastrable
+hacerCarritoArrastrable();
+
+function ordenarProductos(valor) {
     let productosOrdenados;
-
-    switch (criterio) {
+    
+    switch (valor) {
         case 'nombre-asc':
-            productosOrdenados = [...productosGlobales].sort((a, b) => a.nombre.localeCompare(b.nombre));
+            productosOrdenados = productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
             break;
         case 'nombre-desc':
-            productosOrdenados = [...productosGlobales].sort((a, b) => b.nombre.localeCompare(a.nombre));
+            productosOrdenados = productosGlobales.sort((a, b) => b.nombre.localeCompare(a.nombre));
             break;
         case 'precio-asc':
-            productosOrdenados = [...productosGlobales].sort((a, b) => a.precio - b.precio);
+            productosOrdenados = productosGlobales.sort((a, b) => a.precio - b.precio);
             break;
         case 'precio-desc':
-            productosOrdenados = [...productosGlobales].sort((a, b) => b.precio - a.precio);
+            productosOrdenados = productosGlobales.sort((a, b) => b.precio - a.precio);
             break;
         default:
-            productosOrdenados = productosGlobales; // Si no se selecciona ninguna opción, no se hace ningún orden
+            productosOrdenados = productosGlobales; // No ordenar si no hay selección
+            break;
     }
 
     mostrarProductos(productosOrdenados); // Mostrar los productos ordenados
