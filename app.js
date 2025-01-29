@@ -296,6 +296,7 @@ document.getElementById('carrito-btn').addEventListener('click', mostrarModalCar
 // Función para hacer el carrito arrastrable
 function hacerCarritoArrastrable() {
     const carritoDraggable = document.getElementById('carritoDraggable');
+    const cantidadCarrito = document.getElementById('carrito-cantidad'); // Elemento para la cantidad
     let isDragging = false;
     let offsetX, offsetY;
 
@@ -315,8 +316,25 @@ function hacerCarritoArrastrable() {
         if (isDragging) {
             const clientX = e.clientX || e.touches[0].clientX;
             const clientY = e.clientY || e.touches[0].clientY;
-            carritoDraggable.style.left = `${clientX - offsetX}px`;
-            carritoDraggable.style.top = `${clientY - offsetY}px`;
+
+            // Calcular las nuevas posiciones del carrito, limitando a que no salga de la pantalla
+            let newLeft = clientX - offsetX;
+            let newTop = clientY - offsetY;
+
+            // Limitar los bordes para que no se salga de la pantalla
+            const maxLeft = window.innerWidth - carritoDraggable.offsetWidth;
+            const maxTop = window.innerHeight - carritoDraggable.offsetHeight;
+
+            // Asegurar que el carrito no salga de la pantalla
+            newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+            newTop = Math.max(0, Math.min(newTop, maxTop));
+
+            carritoDraggable.style.left = `${newLeft}px`;
+            carritoDraggable.style.top = `${newTop}px`;
+
+            // Actualizar la posición de la cantidad de productos
+            cantidadCarrito.style.left = `${newLeft + carritoDraggable.offsetWidth / 2 - cantidadCarrito.offsetWidth / 2}px`;
+            cantidadCarrito.style.top = `${newTop + carritoDraggable.offsetHeight / 2 - cantidadCarrito.offsetHeight / 2}px`;
         }
     }
 
@@ -335,6 +353,10 @@ function hacerCarritoArrastrable() {
     document.addEventListener('touchmove', drag);
     document.addEventListener('touchend', endDrag);
 }
+
+// Llamamos a la función para que el carrito sea arrastrable
+hacerCarritoArrastrable();
+
 
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
