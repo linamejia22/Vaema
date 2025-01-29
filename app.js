@@ -364,3 +364,26 @@ hacerCarritoArrastrable();
 // Llamamos a la función para que el carrito sea arrastrable
 hacerCarritoArrastrable();
 
+function ordenarProductos(valor) {
+    let productosOrdenados;
+    
+    switch (valor) {
+        case 'nombre-asc':
+            productosOrdenados = productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            break;
+        case 'nombre-desc':
+            productosOrdenados = productosGlobales.sort((a, b) => b.nombre.localeCompare(a.nombre));
+            break;
+        case 'precio-asc':
+            productosOrdenados = productosGlobales.sort((a, b) => a.precio - b.precio);
+            break;
+        case 'precio-desc':
+            productosOrdenados = productosGlobales.sort((a, b) => b.precio - a.precio);
+            break;
+        default:
+            productosOrdenados = productosGlobales; // No ordenar si no hay selección
+            break;
+    }
+
+    mostrarProductos(productosOrdenados); // Mostrar los productos ordenados
+}

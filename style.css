@@ -563,3 +563,51 @@ body {
   cursor: pointer;
   /* Añade más estilos según sea necesario */
 }
+
+/* Contenedor del filtro */
+.ordenar-productos {
+  margin-bottom: 20px; /* Espaciado debajo */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px; /* Espaciado entre el label y el select */
+  font-size: 16px;
+}
+
+/* Estilo para el label */
+.ordenar-productos label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilo para el select */
+#ordenar {
+  padding: 8px 12px; /* Espaciado dentro del select */
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  transition: all 0.3s ease; /* Animación suave en cambios */
+}
+
+/* Estilo para el select cuando está en foco */
+#ordenar:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Agregar sombra sutil al select al pasar el ratón */
+#ordenar:hover {
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Mejorar la legibilidad en pantallas pequeñas */
+@media (max-width: 600px) {
+  .ordenar-productos {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .ordenar-productos label {
+      margin-bottom: 5px;
+  }
+}

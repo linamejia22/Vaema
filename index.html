@@ -21,13 +21,14 @@
             <p>Tu tienda de confianza en repuestos para motos</p>
         </div>
     </header>
-
     <div class="ordenar-productos">
         <label for="ordenar">Ordenar por:</label>
         <select id="ordenar" onchange="ordenarProductos(this.value)">
             <option value="">Seleccionar</option>
-            <option value="nombre">Nombre</option>
-            <option value="precio">Precio</option>
+            <option value="nombre-asc">Nombre (A-Z)</option>
+            <option value="nombre-desc">Nombre (Z-A)</option>
+            <option value="precio-asc">Precio (Menor a mayor)</option>
+            <option value="precio-desc">Precio (Mayor a menor)</option>
         </select>
     </div>
     
