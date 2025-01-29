@@ -15,16 +15,6 @@ async function cargarProductos() {
     }
 }
 
-// Función para filtrar productos
-function filtrarProductos() {
-    const busqueda = document.getElementById('buscador').value.toLowerCase();
-    const productosFiltrados = productosGlobales.filter(producto => {
-        return producto.nombre.toLowerCase().includes(busqueda) || 
-               producto.marca.toLowerCase().includes(busqueda) ||
-               producto.descripcion.toLowerCase().includes(busqueda);
-    });
-    mostrarProductos(productosFiltrados); // Mostrar productos filtrados
-}
 
 // Mostrar productos en la página
 function mostrarProductos(productos) {
@@ -293,13 +283,19 @@ document.addEventListener('DOMContentLoaded', cargarProductos);
 // Event listener para abrir el modal al hacer clic en el carrito
 document.getElementById('carrito-btn').addEventListener('click', mostrarModalCarrito);
 
-// Función para hacer el carrito arrastrable
 function hacerCarritoArrastrable() {
     const carritoDraggable = document.getElementById('carritoDraggable');
-    const cantidadCarrito = document.getElementById('carrito-cantidad'); // Elemento para la cantidad
+    const cantidadCarrito = document.getElementById('carrito-cantidad');
+
+    if (!carritoDraggable || !cantidadCarrito) {
+        console.error('Los elementos necesarios no se encontraron en el DOM.');
+        return;
+    }
+
     let isDragging = false;
     let offsetX, offsetY;
 
+    // Desactivar el comportamiento predeterminado solo para el inicio del arrastre
     function startDrag(e) {
         isDragging = true;
         const clientX = e.clientX || e.touches[0].clientX;
@@ -317,7 +313,7 @@ function hacerCarritoArrastrable() {
             const clientX = e.clientX || e.touches[0].clientX;
             const clientY = e.clientY || e.touches[0].clientY;
 
-            // Calcular las nuevas posiciones del carrito, limitando a que no salga de la pantalla
+            // Calcular las nuevas posiciones del carrito
             let newLeft = clientX - offsetX;
             let newTop = clientY - offsetY;
 
@@ -325,10 +321,11 @@ function hacerCarritoArrastrable() {
             const maxLeft = window.innerWidth - carritoDraggable.offsetWidth;
             const maxTop = window.innerHeight - carritoDraggable.offsetHeight;
 
-            // Asegurar que el carrito no salga de la pantalla
+            // Asegurar que el carrito no se salga de la pantalla
             newLeft = Math.max(0, Math.min(newLeft, maxLeft));
             newTop = Math.max(0, Math.min(newTop, maxTop));
 
+            // Aplicar las nuevas posiciones
             carritoDraggable.style.left = `${newLeft}px`;
             carritoDraggable.style.top = `${newTop}px`;
 
@@ -355,34 +352,27 @@ function hacerCarritoArrastrable() {
 }
 
 // Llamamos a la función para que el carrito sea arrastrable
-hacerCarritoArrastrable();
+//hacerCarritoArrastrable();
 
-
-// Llamamos a la función para que el carrito sea arrastrable
-hacerCarritoArrastrable();
-
-// Llamamos a la función para que el carrito sea arrastrable
-hacerCarritoArrastrable();
-
-function ordenarProductos(valor) {
+// Función para ordenar los productos
+function ordenarProductos(criterio) {
     let productosOrdenados;
-    
-    switch (valor) {
+
+    switch (criterio) {
         case 'nombre-asc':
-            productosOrdenados = productosGlobales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            productosOrdenados = [...productosGlobales].sort((a, b) => a.nombre.localeCompare(b.nombre));
             break;
         case 'nombre-desc':
-            productosOrdenados = productosGlobales.sort((a, b) => b.nombre.localeCompare(a.nombre));
+            productosOrdenados = [...productosGlobales].sort((a, b) => b.nombre.localeCompare(a.nombre));
             break;
         case 'precio-asc':
-            productosOrdenados = productosGlobales.sort((a, b) => a.precio - b.precio);
+            productosOrdenados = [...productosGlobales].sort((a, b) => a.precio - b.precio);
             break;
         case 'precio-desc':
-            productosOrdenados = productosGlobales.sort((a, b) => b.precio - a.precio);
+            productosOrdenados = [...productosGlobales].sort((a, b) => b.precio - a.precio);
             break;
         default:
-            productosOrdenados = productosGlobales; // No ordenar si no hay selección
-            break;
+            productosOrdenados = productosGlobales; // Si no se selecciona ninguna opción, no se hace ningún orden
     }
 
     mostrarProductos(productosOrdenados); // Mostrar los productos ordenados
