@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', cargarProductos);
 // Event listener para abrir el modal al hacer clic en el carrito
 document.getElementById('carrito-btn').addEventListener('click', mostrarModalCarrito);
 
-function hacerCarritoArrastrable() {
+//function hacerCarritoArrastrable() {
     const carritoDraggable = document.getElementById('carritoDraggable');
     const cantidadCarrito = document.getElementById('carrito-cantidad');
 
@@ -349,7 +349,7 @@ function hacerCarritoArrastrable() {
     carritoDraggable.addEventListener('touchstart', startDrag);
     document.addEventListener('touchmove', drag);
     document.addEventListener('touchend', endDrag);
-}
+//}
 
 // Llamamos a la función para que el carrito sea arrastrable
 //hacerCarritoArrastrable();
