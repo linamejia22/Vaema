@@ -215,7 +215,7 @@ function finalizarCompra() {
     const mensajeCodificado = encodeURIComponent(mensaje);
 
     // Crear la URL de WhatsApp con el mensaje
-    const telefono = "+573204535477"; // Aquí puedes poner el número de teléfono de WhatsApp
+    const telefono = "+573126293024"; // Aquí puedes poner el número de teléfono de WhatsApp
     const urlWhatsApp = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
 
     // Redirigir al usuario a WhatsApp
