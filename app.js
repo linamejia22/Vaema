@@ -155,19 +155,20 @@ function filtrarProductos() {
 
 // Finalizar la compra y redirigir a WhatsApp con los detalles de los productos
 function finalizarCompra() {
-    let mensaje = '¡Estoy interesado en estos productos!%0A';
+    let mensaje = '¡Estoy interesado en estos productos!\n\n'; // Añadir espacio al inicio
     carrito.forEach(producto => {
-        mensaje += `${producto.nombre} - ${producto.cantidad} x $${producto.precio} USD%0A`;
+        mensaje += `• ${producto.nombre} - ${producto.cantidad} x $${producto.precio.toLocaleString()} COP\n`; // Formato de moneda y salto de línea
     });
 
     const total = carrito.reduce((sum, producto) => sum + producto.precio * producto.cantidad, 0);
-    mensaje += `%0ATotal: $${total} USD`;
+    mensaje += `\nTotal: $${total.toLocaleString()} COP`; // Formato total en pesos colombianos
 
     const url = `https://wa.me/+573204535477?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
     carrito = [];
     actualizarCarrito();
 }
+
 
 // Event listeners para abrir y cerrar el carrito
 document.getElementById('carrito-btn').addEventListener('click', function() {
