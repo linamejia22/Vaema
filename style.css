@@ -2,123 +2,184 @@
    Encabezado
    ======================================= */
    .header {
-    background: linear-gradient(135deg, #ff0000 0%, #d62862 100%);  /* Gradiente suave de verde claro a blanco */
-    padding: 100px 0;  /* Aumentamos el padding para un mayor impacto */
+    background: linear-gradient(135deg, #ff0000 0%, #d62862 100%);
+    padding: 50px 0;
     text-align: center;
-    border-bottom: 3px solid #D9DFC6; /* Borde inferior para reforzar el tema */
-  }
-  
-  /* Logo dentro de un círculo con borde */
-  .header .logo {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    background-color: #FFFDF0;
-    border-radius: 50%;
-    border: 6px solid #D9DFC6;
-    padding: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);  /* Más profundidad para un look más moderno */
-    margin-bottom: 30px;
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden; /* Esconde cualquier contenido que sobresalga del círculo */
-  }
-  
-  .header .logo:hover {
-    transform: scale(1.1);  /* Efecto hover para hacer crecer el logo */
-  }
-  
-  .header .logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra el círculo sin deformarse */
-    object-position: center; /* Centra la imagen dentro del círculo */
-  }
-  
-  /* Título */
-  .header h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4rem;  /* Hacemos el título grande y audaz */
-    color: #FFF2C2;
-    margin-top: 20px;
-    font-weight: 800;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);  /* Sombra para que el texto resalte más */
-  }
-  
-  /* Subtítulo */
-  .header p {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.4rem;
-    color: #FFFDF0;
-    margin-top: 10px;
-    font-style: italic;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 400;
-  }
-  
-/* =======================================
-   Barra de Búsqueda Mejorada
-   ======================================= */
-  .buscador-container {
-    background: linear-gradient(to right, #FF6F61, #FFB89F);  /* Gradiente suave en tonos cálidos */
-    padding: 40px 0;  /* Más espacio para un diseño más espacioso */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);  /* Sombra suave para mayor profundidad */
-    margin-top: 30px;  /* Separación entre el encabezado y la barra de búsqueda */
-    border-top-left-radius: 50px;  /* Bordes muy redondeados para un diseño más amigable */
-    border-top-right-radius: 50px;
-    text-align: center;
-  }
-  
-  .buscador-container .input-group {
-    max-width: 600px;  /* Ancho más amplio para pantallas grandes */
-    margin: 0 auto;  /* Centrado perfecto */
-    border-radius: 50px;  /* Bordes redondeados para el contenedor */
-    overflow: hidden;  /* Oculta cualquier borde que sobresalga */
-  }
-  
-  .buscador-container .form-control {
-    border-radius: 50px;  /* Bordes redondeados para el campo de búsqueda */
-    padding: 15px 20px;  /* Añadir padding más grande para comodidad */
-    font-size: 1.2rem;  /* Aumentar tamaño de texto para mayor legibilidad */
-    border: 2px solid #FF6F61;  /* Bordes delgados y suaves con color de acento */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Transición suave en el borde */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Sombra sutil alrededor del campo */
-  }
-  
-  .buscador-container .form-control:focus {
-    border-color: #ff3e30;  /* Borde más vibrante al hacer foco */
-    box-shadow: 0 0 12px rgba(255, 62, 48, 0.5);  /* Sombra más intensa en el enfoque */
-    outline: none;  /* Quitamos el borde predeterminado al enfocarse */
-  }
-  
-  .buscador-container .form-control::placeholder {
-    color: #5c5c5c;  /* Color de texto del placeholder más suave */
-    font-weight: 400;  /* Hacer el placeholder más ligero */
-  }
-  
-  .buscador-container .btn {
-    border-radius: 50%;  /* Botón totalmente circular */
-    background-color: #fff;  /* Fondo blanco para el botón */
-    color: #FF6F61;  /* Color de texto en el botón igual que el color principal */
-    padding: 14px 18px;  /* Ajustamos el tamaño del botón */
-    border: 2px solid #FF6F61;  /* Borde que se adapta al color del campo */
-    margin-left: -5px;  /* Lo acercamos al campo de búsqueda */
-    transition: background-color 0.3s ease, transform 0.3s ease;  /* Transiciones suaves */
+    border-bottom: 2px solid #D9DFC6;
+    position: relative;
+    transition: background 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;  /* Asegura que los elementos se ajusten en pantallas pequeñas */
+}
+
+.header:hover {
+    background: linear-gradient(135deg, #d62862 0%, #ff0000 100%);
+}
+
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .buscador-container .btn:hover {
-    background-color: #FF6F61;  /* Fondo al pasar el mouse */
-    color: white;  /* Cambia el color del ícono a blanco */
-    transform: scale(1.1);  /* Efecto de crecimiento en el botón */
-  }
-  
-  .buscador-container .btn i {
-    font-size: 1.4rem;  /* Ícono un poco más grande */
-  }
+    flex-wrap: wrap;  /* Esto asegura que se acomoden correctamente en pantallas pequeñas */
+    max-width: 100%;
+    gap: 20px;  /* Añadido espacio flexible entre los elementos */
+}
+
+.header .logo {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    background-color: #FFFDF0;
+    border-radius: 50%;
+    border: 4px solid #D9DFC6;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.header .logo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.header .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease-in-out;
+}
+
+.header .logo:hover img {
+    transform: scale(1.05);
+}
+
+.header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    color: #FFF2C2;
+    margin-top: 10px;
+    font-weight: 700;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    transition: color 0.3s ease-in-out;
+}
+
+.header h1:hover {
+    color: #FFEB3B;
+}
+
+.header p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    color: #FFFDF0;
+    margin-top: 10px;
+    font-style: italic;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.header p:hover {
+    opacity: 1;
+}
+
+/* Fuentes recomendadas */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap');
+
+/* =======================================
+   Estilos responsivos
+   ======================================= */
+@media (max-width: 768px) {
+    .header .logo {
+        width: 100px;  /* Reduce el tamaño del logo en pantallas más pequeñas */
+        height: 100px;
+    }
+    .header h1 {
+        font-size: 2rem;  /* Ajusta el tamaño del texto */
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo {
+        width: 100px;  /* Aún más pequeño en pantallas extra pequeñas */
+        height: 100px;
+    }
+    .header h1 {
+        font-size: 2.5rem;  /* Ajuste adicional para pantallas pequeñas */
+    }
+}
+
+/* =======================================
+   Barra de Búsqueda Mejorada
+   ======================================= */
+.buscador-container {
+    background: linear-gradient(to right, #FF6F61, #FFB89F);
+    padding: 20px 0;  /* Menos espacio en la barra de búsqueda */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;  /* Menor separación con el encabezado */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    text-align: center;
+    position: relative;  /* Para colocar elementos de manera fluida */
+}
+
+.buscador-container .input-group {
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.buscador-container .form-control {
+    border-radius: 50px;
+    padding: 12px 18px;  /* Ajuste más compacto */
+    font-size: 1.1rem;  /* Tamaño de texto ajustado */
+    border: 2px solid #FF6F61;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buscador-container .form-control:focus {
+    border-color: #ff3e30;
+    box-shadow: 0 0 8px rgba(255, 62, 48, 0.4);
+    outline: none;
+}
+
+.buscador-container .form-control::placeholder {
+    color: #5c5c5c;
+    font-weight: 400;
+}
+
+.buscador-container .btn {
+    border-radius: 50%;
+    background-color: #fff;
+    color: #FF6F61;
+    padding: 10px 14px;
+    border: 2px solid #FF6F61;
+    margin-left: -5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buscador-container .btn:hover {
+    background-color: #FF6F61;
+    color: white;
+    transform: scale(1.05);
+}
+
+.buscador-container .btn i {
+    font-size: 1.3rem;  /* Ajuste al tamaño del ícono */
+}
 
   /* =======================================
    Botón Flotante del Carrito
