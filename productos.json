@@ -4,139 +4,139 @@
     "marca": "LuxeBeauty",
     "precio": 19.99,
     "descripcion": "Crema ligera para hidratar y suavizar la piel, ideal para uso diario.",
-    "imagen": "https://example.com/images/crema_hidratante_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598511721874-5b865dc4dd7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Serum Antiedad",
     "marca": "Youthful Glow",
-    "precio": 29.50,
+    "precio": 29.5,
     "descripcion": "Serum concentrado que ayuda a reducir arrugas y líneas de expresión.",
-    "imagen": "https://example.com/images/serum_antiedad.jpg"
+    "imagen": "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Labial Mate",
     "marca": "Color Chic",
     "precio": 14.75,
     "descripcion": "Labial de acabado mate de larga duración en tonos modernos.",
-    "imagen": "https://example.com/images/labial_mate.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514991533-e9f70fce7a57?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Base de Maquillaje",
     "marca": "Flawless Finish",
-    "precio": 25.00,
+    "precio": 25.0,
     "descripcion": "Base líquida de cobertura media para unificar el tono de la piel.",
-    "imagen": "https://example.com/images/base_maquillaje.jpg"
+    "imagen": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Paleta de Sombras",
     "marca": "Vivid Eyes",
-    "precio": 22.00,
+    "precio": 22.0,
     "descripcion": "Paleta con 12 tonos intensos para crear looks versátiles.",
-    "imagen": "https://example.com/images/paleta_sombras.jpg"
+    "imagen": "https://images.unsplash.com/photo-1512499617640-c2f999052fb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Máscara de Pestañas",
     "marca": "EyeMax",
-    "precio": 18.00,
+    "precio": 18.0,
     "descripcion": "Máscara voluminizadora para realzar y alargar las pestañas.",
-    "imagen": "https://example.com/images/mascara_pestanas.jpg"
+    "imagen": "https://images.unsplash.com/photo-1563306406-8cf3fa17920a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Esmalte de Uñas",
     "marca": "Glam Nails",
     "precio": 9.99,
     "descripcion": "Esmalte de secado rápido y larga duración en varios colores.",
-    "imagen": "https://example.com/images/esmalte_unas.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514781958-0a7f99a35f61?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Corrector Iluminador",
     "marca": "BrightSkin",
-    "precio": 16.50,
+    "precio": 16.5,
     "descripcion": "Corrector con efecto iluminador para disimular imperfecciones.",
-    "imagen": "https://example.com/images/corrector_iluminador.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598513966424-d20bdc7062a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Polvo Compacto",
     "marca": "Matte Finish",
     "precio": 12.99,
     "descripcion": "Polvo facial que controla el brillo y fija el maquillaje.",
-    "imagen": "https://example.com/images/polvo_compacto.jpg"
+    "imagen": "https://images.unsplash.com/photo-1567016549397-27a0a1e1a697?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Crema de Noche",
     "marca": "Night Repair",
-    "precio": 27.50,
+    "precio": 27.5,
     "descripcion": "Crema reparadora para uso nocturno que nutre profundamente la piel.",
-    "imagen": "https://example.com/images/crema_noche.jpg"
+    "imagen": "https://images.unsplash.com/photo-1584036561594-3884c7e1e5f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Limpiador Facial",
     "marca": "PureClean",
-    "precio": 15.00,
+    "precio": 15.0,
     "descripcion": "Gel limpiador suave para eliminar impurezas y maquillaje.",
-    "imagen": "https://example.com/images/limpiador_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598513057683-d74a320cc1bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Tónico Facial",
     "marca": "Fresh Tone",
-    "precio": 13.00,
+    "precio": 13.0,
     "descripcion": "Tónico refrescante que equilibra el pH de la piel.",
-    "imagen": "https://example.com/images/tonico_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1607083209661-1f1933d36e7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Exfoliante Facial",
     "marca": "Glow Renew",
     "precio": 17.25,
     "descripcion": "Exfoliante suave que elimina células muertas para una piel radiante.",
-    "imagen": "https://example.com/images/exfoliante_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514108160-1fbd0d6d3e46?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Aceite Facial",
     "marca": "Pure Essence",
-    "precio": 21.00,
+    "precio": 21.0,
     "descripcion": "Aceite nutritivo que hidrata y revitaliza la piel en profundidad.",
-    "imagen": "https://example.com/images/aceite_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514992538-5e6de18d2a5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Protector Solar Facial",
     "marca": "SunGuard",
-    "precio": 19.50,
+    "precio": 19.5,
     "descripcion": "Protector solar de amplio espectro con textura ligera.",
-    "imagen": "https://example.com/images/protector_solar_facial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514714730-2f9cf6b96d2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Crema de Ojos",
     "marca": "EyeCare",
     "precio": 16.75,
     "descripcion": "Crema específica para la zona de los ojos, reduce hinchazón y ojeras.",
-    "imagen": "https://example.com/images/crema_ojos.jpg"
+    "imagen": "https://images.unsplash.com/photo-1607083209796-9f3e7fbc6f50?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Mascarilla Hidratante",
     "marca": "HydraBoost",
-    "precio": 24.00,
+    "precio": 24.0,
     "descripcion": "Mascarilla intensiva que hidrata y suaviza la piel.",
-    "imagen": "https://example.com/images/mascarilla_hidratante.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598514774798-0c6a3c8f8ab3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Bálsamo Labial",
     "marca": "LipCare",
-    "precio": 8.50,
+    "precio": 8.5,
     "descripcion": "Bálsamo nutritivo para labios secos, con un toque de color.",
-    "imagen": "https://example.com/images/balsamo_labial.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598515004984-c0c4233a7b4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Perfume",
     "marca": "Essence",
-    "precio": 45.00,
+    "precio": 45.0,
     "descripcion": "Fragancia sofisticada y duradera para ocasiones especiales.",
-    "imagen": "https://example.com/images/perfume.jpg"
+    "imagen": "https://images.unsplash.com/photo-1589987601637-36d873c2d5d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   },
   {
     "nombre": "Crema Corporal",
     "marca": "BodySilk",
-    "precio": 20.00,
+    "precio": 20.0,
     "descripcion": "Crema hidratante para el cuerpo que deja la piel suave y sedosa.",
-    "imagen": "https://example.com/images/crema_corporal.jpg"
+    "imagen": "https://images.unsplash.com/photo-1598515118907-8a0d7e2f3d69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
   }
 ]
