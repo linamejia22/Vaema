@@ -4,7 +4,7 @@
     "marca": "LuxeBeauty",
     "precio": 135000,
     "descripcion": "Crema ligera para hidratar y suavizar la piel, ideal para uso diario.",
-    "images": "images/original.jpeg"
+    "imagen": "original.jpeg"
   },
   {
     "nombre": "Serum Antiedad",
