@@ -171,7 +171,7 @@ function finalizarCompra() {
     const total = carrito.reduce((sum, producto) => sum + producto.precio * producto.cantidad, 0);
     mensaje += `\nTotal: $${total.toLocaleString()} COP`; // Formato total en pesos colombianos
 
-    const url = `https://wa.me/+573204535477?text=${encodeURIComponent(mensaje)}`;
+    const url = `https://wa.me/+573136884821?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
     carrito = [];
     actualizarCarrito();

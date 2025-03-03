@@ -1,79 +1,142 @@
 [
   {
-    "nombre": "Aletas Tanque XTZ Colores Neg,Az,Bl",
-    "marca": "REDPLAS",
-    "precio": 21000,
-    "descripcion": "Aletas de tanque para XTZ, disponibles en negro, azul y blanco.",
-    "imagen": "Aletas Tanque XTZ Colores Neg,Az,Bl.jpg"
- },
-  {
-    "nombre": "Amortiguador Boxer CT",
-    "marca": "JAPANI",
-    "precio": 70000,
-    "descripcion": "Amortiguador para Boxer CT, marca Japani, ideal para mejorar el rendimiento.",
-    "imagen": "amortiguador-boxer-japani.jpg"
+    "nombre": "Crema Hidratante Facial",
+    "marca": "LuxeBeauty",
+    "precio": 19.99,
+    "descripcion": "Crema ligera para hidratar y suavizar la piel, ideal para uso diario.",
+    "imagen": "https://example.com/images/crema_hidratante_facial.jpg"
   },
   {
-    "nombre": "Amortiguador Boxer CT",
-    "marca": "KCC",
-    "precio": 65000,
-    "descripcion": "Amortiguador de alta calidad para Boxer CT, marca KCC, con gran durabilidad.",
-    "imagen": "amortiguador-boxer-kcc.jpg"
+    "nombre": "Serum Antiedad",
+    "marca": "Youthful Glow",
+    "precio": 29.50,
+    "descripcion": "Serum concentrado que ayuda a reducir arrugas y líneas de expresión.",
+    "imagen": "https://example.com/images/serum_antiedad.jpg"
   },
   {
-    "nombre": "Amortiguador Boxer CT",
-    "marca": "ORIGINAL",
-    "precio": 120000,
-    "descripcion": "Amortiguador original para Boxer CT, garantiza un ajuste perfecto y rendimiento.",
-    "imagen": "amortiguador-boxer-original.jpg"
+    "nombre": "Labial Mate",
+    "marca": "Color Chic",
+    "precio": 14.75,
+    "descripcion": "Labial de acabado mate de larga duración en tonos modernos.",
+    "imagen": "https://example.com/images/labial_mate.jpg"
   },
   {
-    "nombre": "Amortiguador Boxer CT",
-    "marca": "XPART",
-    "precio": 80000,
-    "descripcion": "Amortiguador Boxer CT de la marca Xpart, ideal para mejorar la suspensión.",
-    "imagen": "amortiguador-boxer-xpart.jpg"
+    "nombre": "Base de Maquillaje",
+    "marca": "Flawless Finish",
+    "precio": 25.00,
+    "descripcion": "Base líquida de cobertura media para unificar el tono de la piel.",
+    "imagen": "https://example.com/images/base_maquillaje.jpg"
   },
   {
-    "nombre": "Amortiguador Boxer CT",
-    "marca": "ENDURANCE",
-    "precio": 120000,
-    "descripcion": "Amortiguador Boxer CT de la marca Endurance, para un rendimiento confiable.",
-    "imagen": "amortiguador-boxer-endurance.jpg"
+    "nombre": "Paleta de Sombras",
+    "marca": "Vivid Eyes",
+    "precio": 22.00,
+    "descripcion": "Paleta con 12 tonos intensos para crear looks versátiles.",
+    "imagen": "https://example.com/images/paleta_sombras.jpg"
   },
   {
-    "nombre": "Anillos Boxer CT STD",
-    "marca": "ORIGINAL",
-    "precio": 20000,
-    "descripcion": "Anillos STD originales para Boxer CT, alta calidad y resistencia.",
-    "imagen": "anillos-boxer-std.jpg"
+    "nombre": "Máscara de Pestañas",
+    "marca": "EyeMax",
+    "precio": 18.00,
+    "descripcion": "Máscara voluminizadora para realzar y alargar las pestañas.",
+    "imagen": "https://example.com/images/mascara_pestanas.jpg"
   },
   {
-    "nombre": "Arandela Piñon Salida FZ-Discv",
-    "marca": "OKLA",
-    "precio": 900,
-    "descripcion": "Arandela para piñón de salida FZ-Discv, marca Okla, resistente y duradera.",
-    "imagen": "arandela-pinion-fz.jpg"
+    "nombre": "Esmalte de Uñas",
+    "marca": "Glam Nails",
+    "precio": 9.99,
+    "descripcion": "Esmalte de secado rápido y larga duración en varios colores.",
+    "imagen": "https://example.com/images/esmalte_unas.jpg"
   },
   {
-    "nombre": "Árbol de Leva Boxer",
-    "marca": "MOTRONIX",
-    "precio": 20000,
-    "descripcion": "Árbol de leva para Boxer, marca Motronix, diseñado para mejorar el rendimiento.",
-    "imagen": "arbol-leva-boxer.jpg"
+    "nombre": "Corrector Iluminador",
+    "marca": "BrightSkin",
+    "precio": 16.50,
+    "descripcion": "Corrector con efecto iluminador para disimular imperfecciones.",
+    "imagen": "https://example.com/images/corrector_iluminador.jpg"
   },
   {
-    "nombre": "Árbol Leva AKT NKD",
-    "marca": "MT",
-    "precio": 26000,
-    "descripcion": "Árbol de leva AKT NKD, marca MT, optimiza la potencia y eficiencia.",
-    "imagen": "arbol-leva-akt-nkd-mt.jpg"
+    "nombre": "Polvo Compacto",
+    "marca": "Matte Finish",
+    "precio": 12.99,
+    "descripcion": "Polvo facial que controla el brillo y fija el maquillaje.",
+    "imagen": "https://example.com/images/polvo_compacto.jpg"
   },
   {
-    "nombre": "Árbol Leva AKT NKD",
-    "marca": "KCC",
-    "precio": 26000,
-    "descripcion": "Árbol de leva para AKT NKD, marca KCC, ideal para mejorar el desempeño.",
-    "imagen": "arbol-leva-akt-nkd-kcc.jpg"
+    "nombre": "Crema de Noche",
+    "marca": "Night Repair",
+    "precio": 27.50,
+    "descripcion": "Crema reparadora para uso nocturno que nutre profundamente la piel.",
+    "imagen": "https://example.com/images/crema_noche.jpg"
+  },
+  {
+    "nombre": "Limpiador Facial",
+    "marca": "PureClean",
+    "precio": 15.00,
+    "descripcion": "Gel limpiador suave para eliminar impurezas y maquillaje.",
+    "imagen": "https://example.com/images/limpiador_facial.jpg"
+  },
+  {
+    "nombre": "Tónico Facial",
+    "marca": "Fresh Tone",
+    "precio": 13.00,
+    "descripcion": "Tónico refrescante que equilibra el pH de la piel.",
+    "imagen": "https://example.com/images/tonico_facial.jpg"
+  },
+  {
+    "nombre": "Exfoliante Facial",
+    "marca": "Glow Renew",
+    "precio": 17.25,
+    "descripcion": "Exfoliante suave que elimina células muertas para una piel radiante.",
+    "imagen": "https://example.com/images/exfoliante_facial.jpg"
+  },
+  {
+    "nombre": "Aceite Facial",
+    "marca": "Pure Essence",
+    "precio": 21.00,
+    "descripcion": "Aceite nutritivo que hidrata y revitaliza la piel en profundidad.",
+    "imagen": "https://example.com/images/aceite_facial.jpg"
+  },
+  {
+    "nombre": "Protector Solar Facial",
+    "marca": "SunGuard",
+    "precio": 19.50,
+    "descripcion": "Protector solar de amplio espectro con textura ligera.",
+    "imagen": "https://example.com/images/protector_solar_facial.jpg"
+  },
+  {
+    "nombre": "Crema de Ojos",
+    "marca": "EyeCare",
+    "precio": 16.75,
+    "descripcion": "Crema específica para la zona de los ojos, reduce hinchazón y ojeras.",
+    "imagen": "https://example.com/images/crema_ojos.jpg"
+  },
+  {
+    "nombre": "Mascarilla Hidratante",
+    "marca": "HydraBoost",
+    "precio": 24.00,
+    "descripcion": "Mascarilla intensiva que hidrata y suaviza la piel.",
+    "imagen": "https://example.com/images/mascarilla_hidratante.jpg"
+  },
+  {
+    "nombre": "Bálsamo Labial",
+    "marca": "LipCare",
+    "precio": 8.50,
+    "descripcion": "Bálsamo nutritivo para labios secos, con un toque de color.",
+    "imagen": "https://example.com/images/balsamo_labial.jpg"
+  },
+  {
+    "nombre": "Perfume",
+    "marca": "Essence",
+    "precio": 45.00,
+    "descripcion": "Fragancia sofisticada y duradera para ocasiones especiales.",
+    "imagen": "https://example.com/images/perfume.jpg"
+  },
+  {
+    "nombre": "Crema Corporal",
+    "marca": "BodySilk",
+    "precio": 20.00,
+    "descripcion": "Crema hidratante para el cuerpo que deja la piel suave y sedosa.",
+    "imagen": "https://example.com/images/crema_corporal.jpg"
   }
 ]
