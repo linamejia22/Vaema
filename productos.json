@@ -25,118 +25,118 @@
     "marca": "Flawless Finish",
     "precio": 135000,
     "descripcion": "Base líquida de cobertura media para unificar el tono de la piel.",
-    "imagen": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "basa.jpg"
   },
   {
     "nombre": "Paleta de Sombras",
     "marca": "Vivid Eyes",
     "precio": 157000,
     "descripcion": "Paleta con 12 tonos intensos para crear looks versátiles.",
-    "imagen": "https://images.unsplash.com/photo-1512499617640-c2f999052fb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "paleta.jpg"
   },
   {
     "nombre": "Máscara de Pestañas",
     "marca": "EyeMax",
     "precio": 112000,
     "descripcion": "Máscara voluminizadora para realzar y alargar las pestañas.",
-    "imagen": "https://images.unsplash.com/photo-1563306406-8cf3fa17920a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "mascara de pest.jpg"
   },
   {
     "nombre": "Esmalte de Uñas",
     "marca": "Glam Nails",
     "precio": 58500,
     "descripcion": "Esmalte de secado rápido y larga duración en varios colores.",
-    "imagen": "https://images.unsplash.com/photo-1598514781958-0a7f99a35f61?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "esmal.jpg"
   },
   {
     "nombre": "Corrector Iluminador",
     "marca": "BrightSkin",
     "precio": 85500,
     "descripcion": "Corrector con efecto iluminador para disimular imperfecciones.",
-    "imagen": "https://images.unsplash.com/photo-1598513966424-d20bdc7062a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "corr.webp"
   },
   {
     "nombre": "Polvo Compacto",
     "marca": "Matte Finish",
     "precio": 76500,
     "descripcion": "Polvo facial que controla el brillo y fija el maquillaje.",
-    "imagen": "https://images.unsplash.com/photo-1567016549397-27a0a1e1a697?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "polvo.webp"
   },
   {
     "nombre": "Crema de Noche",
     "marca": "Night Repair",
     "precio": 180000,
     "descripcion": "Crema reparadora para uso nocturno que nutre profundamente la piel.",
-    "imagen": "https://images.unsplash.com/photo-1584036561594-3884c7e1e5f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "crrma.jpg"
   },
   {
     "nombre": "Limpiador Facial",
     "marca": "PureClean",
     "precio": 90000,
     "descripcion": "Gel limpiador suave para eliminar impurezas y maquillaje.",
-    "imagen": "https://images.unsplash.com/photo-1598513057683-d74a320cc1bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "limpia.jpg"
   },
   {
     "nombre": "Tónico Facial",
     "marca": "Fresh Tone",
     "precio": 67500,
     "descripcion": "Tónico refrescante que equilibra el pH de la piel.",
-    "imagen": "https://images.unsplash.com/photo-1607083209661-1f1933d36e7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "tonico.jpg"
   },
   {
     "nombre": "Exfoliante Facial",
     "marca": "Glow Renew",
     "precio": 112000,
     "descripcion": "Exfoliante suave que elimina células muertas para una piel radiante.",
-    "imagen": "https://images.unsplash.com/photo-1598514108160-1fbd0d6d3e46?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "exfoliante.jpg"
   },
   {
     "nombre": "Aceite Facial",
     "marca": "Pure Essence",
     "precio": 126000,
     "descripcion": "Aceite nutritivo que hidrata y revitaliza la piel en profundidad.",
-    "imagen": "https://images.unsplash.com/photo-1598514992538-5e6de18d2a5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "aceitef.jpg"
   },
   {
     "nombre": "Protector Solar Facial",
     "marca": "SunGuard",
     "precio": 88000,
     "descripcion": "Protector solar de amplio espectro con textura ligera.",
-    "imagen": "https://images.unsplash.com/photo-1598514714730-2f9cf6b96d2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "protec.jpg"
   },
   {
     "nombre": "Crema de Ojos",
     "marca": "EyeCare",
     "precio": 75000,
     "descripcion": "Crema específica para la zona de los ojos, reduce hinchazón y ojeras.",
-    "imagen": "https://images.unsplash.com/photo-1607083209796-9f3e7fbc6f50?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "cremadeojos.jpg"
   },
   {
     "nombre": "Mascarilla Hidratante",
     "marca": "HydraBoost",
     "precio": 108000,
     "descripcion": "Mascarilla intensiva que hidrata y suaviza la piel.",
-    "imagen": "https://images.unsplash.com/photo-1598514774798-0c6a3c8f8ab3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "mascarillaf.jpg"
   },
   {
     "nombre": "Bálsamo Labial",
     "marca": "LipCare",
     "precio": 38250,
     "descripcion": "Bálsamo nutritivo para labios secos, con un toque de color.",
-    "imagen": "https://images.unsplash.com/photo-1598515004984-c0c4233a7b4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "balsamo.jpg"
   },
   {
     "nombre": "Perfume",
     "marca": "Essence",
     "precio": 202500,
     "descripcion": "Fragancia sofisticada y duradera para ocasiones especiales.",
-    "imagen": "https://images.unsplash.com/photo-1589987601637-36d873c2d5d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "perfu.jpg"
   },
   {
     "nombre": "Crema Corporal",
     "marca": "BodySilk",
     "precio": 90000,
     "descripcion": "Crema hidratante para el cuerpo que deja la piel suave y sedosa.",
-    "imagen": "https://images.unsplash.com/photo-1598515118907-8a0d7e2f3d69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    "imagen": "crema corporal.jpg"
   }
 ]
